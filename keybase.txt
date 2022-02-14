@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/rhaidiz
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://rhaidiz.net
+  * I am rhaidiz (https://keybase.io/rhaidiz) on keybase.
+  * I have a public key ASBusjs0FsaFNkCjRUy9KjMp877Eb3XtKDV7asRojhthNQo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01206eb23b3416c6853640a3454cbd2a3329f3bec46f75ed28357b6ac4688e1b61350a",
+      "host": "keybase.io",
+      "kid": "01206eb23b3416c6853640a3454cbd2a3329f3bec46f75ed28357b6ac4688e1b61350a",
+      "uid": "5b33740a1a1121dfdc1265376b2ab219",
+      "username": "rhaidiz"
+    },
+    "merkle_root": {
+      "ctime": 1585421539,
+      "hash": "5d4a90dd516a83ef270edec46141979d5017504f8c4470db9a8ccdd5243b4adc2b0a118571044defb41884f83c7e2b0413a447ef9f1719095f9303c3eff61fcc",
+      "hash_meta": "d020afc96ffa4c64ac9344311017c3ffcddf3c9b7c6c7087cac808d983fd59ce",
+      "seqno": 15658200
+    },
+    "service": {
+      "entropy": "UkAo8Of8ULGIZMnaS0b04kyd",
+      "hostname": "rhaidiz.net",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "5.3.0"
+  },
+  "ctime": 1585421551,
+  "expire_in": 504576000,
+  "prev": "863b3fd20bed16269799004fb086c2fb803b6829d9dd5a5ed7a7b66b55fa6ee7",
+  "seqno": 27,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgbrI7NBbGhTZAo0VMvSozKfO+xG917Sg1e2rEaI4bYTUKp3BheWxvYWTESpcCG8Qghjs/0gvtFiaXmQBPsIbC+4A7aCnZ3Vpe16e2a1X6bufEIP8xp2on0pnIMc5hv+2ptEqykzWg9OIkly4g9kS1uB43AgHCo3NpZ8RA8g6pFb1sEqcgWfH41AvldQqUiIZQ6bsFnHJV/5WPYpLn9UAGK+jH6T1Qe1oE1hZUPeN5DsLzUJPNOLN0O5AwB6hzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIPvj0UzbawnoF7MkqZogxR5WCGCMH3s0PlZKo+f6FCvwo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/rhaidiz
+
+==================================================================

