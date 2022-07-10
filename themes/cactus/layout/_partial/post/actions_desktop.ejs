@@ -32,7 +32,7 @@
       <%- partial('_partial/post/share', { icon_class_name: '' }) %>
     </div>
     <div id="toc">
-      <%- toc(page.content) %>
+      <%- toc(page.content,{max_depth:2}) %>
     </div>
   </span>
 </div>
