@@ -79,3 +79,7 @@ theme: cactus
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type:
+
+umami:
+  enabled: false
+  url: https://analytics.rhaidiz.net/something

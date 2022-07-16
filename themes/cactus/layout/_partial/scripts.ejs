@@ -71,3 +71,19 @@
         }());
     </script>
 <% } %>
+<!-- Umami Analytics -->
+<% if (theme.umami.enabled && theme.umami.url && theme.umami.id){ %>
+    <script type="text/javascript">
+        var umami_endpoint = '<%= theme.umami.url %>';
+
+        (function(){
+            var umm = document.createElement('script');
+            umm.type = 'text/javascript';
+            umm.async = true;
+			umm.defer = true;
+			umm.setAttribute("data-website-id", '<%= theme.umami.id %>');
+            umm.src = umami_endpoint;
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(umm);
+        }());
+    </script>
+<% } %>
