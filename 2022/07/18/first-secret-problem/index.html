@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="An overview of the first secret problems and possible solutions.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The First Secret Problem">
+<meta property="og:url" content="https://rhaidiz.net/2022/07/18/first-secret-problem/index.html">
+<meta property="og:site_name" content="rhaidiz">
+<meta property="og:description" content="An overview of the first secret problems and possible solutions.">
+<meta property="og:locale">
+<meta property="og:image" content="https://rhaidiz.net/images/iam-workflow.png">
+<meta property="article:published_time" content="2022-07-18T00:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-18T17:05:55.029Z">
+<meta property="article:author" content="rhaidiz">
+<meta property="article:tag" content="security">
+<meta property="article:tag" content="secrets">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rhaidiz.net/images/iam-workflow.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>The First Secret Problem</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.4.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Posts</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2019/06/10/wafex/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://rhaidiz.net/2022/07/18/first-secret-problem/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&text=The First Secret Problem"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&is_video=false&description=The First Secret Problem"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=The First Secret Problem&body=Check out this article: https://rhaidiz.net/2022/07/18/first-secret-problem/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&name=The First Secret Problem&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scenario"><span class="toc-number">2.</span> <span class="toc-text">Scenario</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-parameter"><span class="toc-number">3.</span> <span class="toc-text">Command parameter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-Variables"><span class="toc-number">4.</span> <span class="toc-text">Environment Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Local-file-system"><span class="toc-number">5.</span> <span class="toc-text">Local file-system</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Database"><span class="toc-number">6.</span> <span class="toc-text">Database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vault"><span class="toc-number">7.</span> <span class="toc-text">Vault</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-this-A-cat-and-mouse-game"><span class="toc-number">8.</span> <span class="toc-text">What is this? A cat and mouse game?</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        The First Secret Problem
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">rhaidiz</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2022-07-18T00:00:00.000Z" itemprop="datePublished">2022-07-18</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/secrets/" rel="tag">secrets</a>, <a class="tag-link-link" href="/tags/security/" rel="tag">security</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Trust is an important property. Actually, it is the single most important property of them all. With trust we can bootstrap security, as security cannot be fabricated out of thin air. However, trust has an inherited problem, it requires you to assume that something is true, verified, confidential, integral or, simply, secure.<br>This is why, as a rule of thumb, a system, to be secure, should be built so that it doesn’t make many trust assumptions.</p>
+<p>A very good example of such trust issue is the so-called “first secret problem”. There is not a formal definition of the “first secret problem” but we could refer to it as the problem of bootstrapping a system which requires some confidential information (e.g., a password or an authentication token) in order to work. Imagine you have a bash script that runs as a cron job and queries an API using an authentication token. The authentication token is our secret and we need the script to use it. The problems that you might have to face when handling such secret are:</p>
+<ul>
+<li><strong>Creation</strong>: how do we create the secret?</li>
+<li><strong>Storage</strong>: where do we store the secret?</li>
+<li><strong>Consumption</strong>: how does our system access the secret?</li>
+</ul>
+<p>I’ve seen many times the suggestion of having the secret stored in an encrypted file so that the cron job can read it from there. Let’s see what would happen in that case:</p>
+<ul>
+<li><strong>Creation</strong>: we are going to manually create the secret and encrypt it with a password. We should be careful to not issuing commands that expose our secret within the shell history.</li>
+<li><strong>Storage</strong>: the secret is encrypted and thus protected in case of un-authorised access to the device storing it.</li>
+<li><strong>Consumption</strong>: our shell script can read the encrypted file, but it needs a password in order to decrypt the content of the file, so we are back at square one. Moreover, the level of confidentiality of this other password is no different from the level of confidentiality of the token it protects.</li>
+</ul>
+<p>This is, in a nutshell, the first secret problem.</p>
+<p>How do we solve it? Unfortunately, we cannot solve it with a definite solution that would work in all situations, there’s no “one size fits all” solution (otherwise we would probably be able to fabricate security out of thin air).<br>In the remainder of this post I will describe a scenario and I shall attempt at describing a number of solutions that could be used to solve the “first secret problem”. Note that I will most likely not provide an exhaustive list of solutions but rather a general overview of the most common ones (or at least the ones that popped into my brain).</p>
+<h2 id="Scenario"><a href="#Scenario" class="headerlink" title="Scenario"></a>Scenario</h2><p>Let’s describe a simple scenario and the attacker we want to protect ourselves from.<br>You have a standalone application running that takes a backup of a folder and stores the backup on a network folder that is already mounted on the system. The backup you want to take is encrypted and therefore the backup application requires a password. In this example, the “first secret problem” is the password used to encrypt the backup.<br>As for the attacker, say you want to protect from a remote attacker that might want to attempt at compromising the machine where the backup script is running, e.i. the attacker does not have physical access to the machine itself. How shall we handle it?</p>
+<p><strong>However</strong>, before getting into juice part, allow me to make a quick remark: <strong>please</strong>, <strong>please</strong>, <strong>please</strong> 🙏, before picking up a solution (any solution) to any security issue, make sure you fully understand the problem you are trying to solve, the attack scenario you want to prevent and you want to achieve. Do not pick the most complicated solution just because it’s considered to be the “safest one”. You might end up implementing an incredible complicated mechanism to solve a problem you probably didn’t even have.</p>
+<h2 id="Command-parameter"><a href="#Command-parameter" class="headerlink" title="Command parameter"></a>Command parameter</h2><p>Imagine the case where the password is passed to the application via command line parameter.</p>
+<ul>
+<li><strong>Creation</strong>: passing it in the prompt as parameter.</li>
+<li><strong>Storage</strong>: none, the secret is stored only in memory while the backup application runs.</li>
+<li><strong>Consumption</strong>: the application reads the secret from the prompt parameters.<br>Security consideration for creation:</li>
+<li>The secret is displayed on screen, which will most likely always be the case, and not so much a problem if you are alone in the room.</li>
+<li>The secret gets saved in the history of the shell, a problem in case other people have access to the same account on the same machine.<br>Security consideration for storage:</li>
+<li>The secret does not get permanently stored.<br>Security consideration for feeding:</li>
+<li>The secret is directly read as a parameter which makes it safe enough from a confidentiality or integrity point of view.</li>
+</ul>
+<h2 id="Environment-Variables"><a href="#Environment-Variables" class="headerlink" title="Environment Variables"></a>Environment Variables</h2><p>Imagine the case where the password is feed to the application via environment variables.</p>
+<ul>
+<li><strong>Creation</strong>: a shell commands issued by the user to create an environment variable;</li>
+<li><strong>Storage</strong>: environment variable;</li>
+<li><strong>Consumption</strong>: the application reads the environment variable.<br>Security consideration for creation:</li>
+<li>The secret is displayed on screen (again), which will most likely always be the case, and not so much a problem if you are alone in the room.</li>
+<li>The secret gets saved in the history of the shell since it is created via shell commands. This can be a problem in case other people have access to the same account on the same machine.<br>Security consideration for storage:</li>
+<li>The secret is stored in the environment variable. Generally speaking, an attacker that has access to the environment variables is already an attacker that has a pretty important foothold in the entire system and thus, you might have bigger problems.<br>Security consideration for feeding:</li>
+<li>The secret is directly read from the environment variable which makes it safe enough from a confidentiality or integrity point of view.</li>
+</ul>
+<h2 id="Local-file-system"><a href="#Local-file-system" class="headerlink" title="Local file-system"></a>Local file-system</h2><p>Imagine the case where the password is stored on the local file-system where the application is running and the application reads the file to obtain the password. The file is stored in plaintext.</p>
+<ul>
+<li><strong>Creation</strong>: the user manually writing a file;</li>
+<li><strong>Storage</strong>: plaintext file;</li>
+<li><strong>Consumption</strong>: the application reads the file.<br>Security consideration for creation:</li>
+<li>The secret is displayed on screen (once more), which will most likely always be the case, and not so much a problem if you are alone in the room.<br>Security consideration for storage</li>
+<li>Secret is stored in plaintext in the file-system. It is quite common for an attacker to find ways to have un-authorised access to a machine’s file-system (far more common then an attacker having access to the environment variables, at least in my experience), which means we are exposing the secret to a bigger risk if compared to the environment variable. I would like to spend a few words to justify why, in my experience, the file-system is an easier target by an attacker. In order for the attacker to compromise the machine, he has to find a vulnerability on a service running on the machine itself. It is quite common for services to provide some sort of reading functionality to access certain parts of the file-system. Such functionalities might be abused by an attacker to access arbitrary location and ultimately the file containing the secret. Little less likely is the case of an application providing explicit functionality for accessing the environment variables that could be abused to access the environment itself. For an attacker to access the environment variables it is more likely he already has some sort of remote command execution capability.</li>
+<li>The storage of the secret is permanent, so a reboot of the machine would not cause the lost of the secret.<br>Security consideration for feeding:</li>
+<li>The application will read the secret from the file-system which makes it safe enough from a confidentiality or integrity point of view.</li>
+</ul>
+<p>What about if we want to encrypt the file that contains the password? As we’ve seen before, we end up in the recursive dilemma of the “first secret problem”, where now we are back at square one and should find a way to provide another password to our application.</p>
+<h2 id="Database"><a href="#Database" class="headerlink" title="Database"></a>Database</h2><p>Imagine the case where your password is stored within a database and your application has to access the database.<br>This solution is actually not too different from the “local file-system” solution and most of the considerations that we have already explored applies here too, especially if the database is installed on the same machine where the backup application is running. </p>
+<p>To make things interesting, let’s consider the case where the database is provided as a service running on a separate machine. For the backup application to access the database, it has to use a network protocol. The network protocol must provide integrity and confidentiality so that an attacker cannot eavesdrop on the network channel, and should also provide authentication, so that only the backup application can access the backup password.<br>We can consider two solutions for allowing only the backup application to access the database:</p>
+<ol>
+<li>Taking advantage of the network topology so that the machine running the backup application is the only one allowed to access the machine running the database i.e. the backup machine has a physical wired connected to the database machine and the database machine is not physically connected to anything else.  This case falls right back into the “local file-system” scenario, the presence of a physical wire that connected the two machines is negligible from a security point of view (remember the assumption on the attacker).</li>
+<li>The machine running the database is located somewhere on the network and the backup application has credentials to access the database. This means that the backup application requires a pair username\password to access the database to retrieve the backup password. This case makes us loop back again in the recursive dilemma of the “first secret problem”: what are we supposed to do with the pair username\password?</li>
+</ol>
+<h2 id="Vault"><a href="#Vault" class="headerlink" title="Vault"></a>Vault</h2><p>We can think of vaults as an envolved databas. A vault is essentially a database that provides helpful functionalities for storing secrets, providing features such as encryption at rest and encryption in transit out of the box along with many others. A vault is also very helpful to developers for lifting the burden of handling secrets.<br>However, the way they integrate into your application is still very close to what we have seen above with databases:</p>
+<ul>
+<li>A vault is typically running on a separate machine as a service;</li>
+<li>Requires applications to connect to it via some sort of authentication;</li>
+<li>Once authenticated the application get to access secrets.</li>
+</ul>
+<p>So here we are again, how to we make the application to authenticate to a vault? We still need to bootstrap security between the two entities.<br>You might think that there’s another option, since the concept of Vault is often associated with the Cloud, which in turn is often associated with the concept of Identity and Access Management (or IAM for short).</p>
+<h3 id="Does-IAM-solve-the-first-secret-problem"><a href="#Does-IAM-solve-the-first-secret-problem" class="headerlink" title="Does IAM solve the first secret problem?"></a>Does IAM solve the first secret problem?</h3><p>TL;DR: “I’m afraid not Billy”.</p>
+<p>What IAM does is essentially allowing us to specify, given an identity, to which resources or services that identity has access to. The way IAM actually provides access to a resource or service, is still by providing some kind of credentials (typically temporary) so that the identity can access the resource. If we go back to our example, it would work something like this:</p>
+<p><img src="/images/iam-workflow.png" alt="iam-workflow"></p>
+<p>The backup application has an IAM policy stating that it can access the vault.</p>
+<ol>
+<li>The backup application requests access for the Vault service to the IAM system; </li>
+<li>The IAM system has the list of policies and identities and checks if the identity making the request has a policy that allows it access to the Vault;</li>
+<li>If the check is positive, the IAM system provides temporary credentials to backup application;</li>
+<li>The backup application can use the temporary credentials to access the vault;</li>
+<li>The vault answers with the backup password for encrypting the backups.</li>
+</ol>
+<p>Now the question should be obvious, how do we actually perform step 1-2? How does the BackupApp entity identify itself to the IAM system? This is where, once again, we loop back to the first secret problem.<br>When you implement the BackupApp entity to access the IAM system you are using a library or SDK provided by the Cloud provider of your choice. The SDK is working some magic under the hood you don’t see, and is retrieving some other secret that can be used to prove its identity to the IAM system.<br>(The SDK only simplifies access to the credentials which are instantiated, for instance, as <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-runtime">environment variables</a> or <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-categories.html">metadata endpoint</a> and are temporary and rotate frequently.)</p>
+<h2 id="What-is-this-A-cat-and-mouse-game"><a href="#What-is-this-A-cat-and-mouse-game" class="headerlink" title="What is this? A cat and mouse game?"></a>What is this? A cat and mouse game?</h2><p>Indeed it is. As you might have noticed from the brief excursuses of the solutions above, the basic idea behind solving the first secret problem is to put the initial secret far away as possible from the attacker reach, so that we can make the attacker’s life more complicated. As I said at the beginning, there is no one-size-fit-all solution to the “first secret problem” and you have to choose which is the better solution for your case.<br>To choose the better solution you should use our favourite thing in security: a threat model.<br>A brief list of things to consider in this case are:</p>
+<ul>
+<li>What kind of attacker you want to protect yourself from,</li>
+<li>What kind of resources are at your disposal,</li>
+<li>The value of the data you want to protect,</li>
+<li>How expensive you solution would be in comparison with the data you are protecting,</li>
+<li>What should definitely not happen,</li>
+<li>What is ok(ish) if it happens.</li>
+</ul>
+<p>For example: let’s consider the case above of the backup script that takes a backup of your local NAS and stores it into a network storage in the cloud. In this case you want to encrypt the backup because it’s sent into the cloud and you want to ensure confidentiality, but you might be ok at storing the backup password in plaintext in a cron job because your NAS is running in your local network and does not have a wide attack surface that can be abused by a remote attacker.<br>On the other hand, if you are running a kubernetes cluster at scale, and have many people working on it, you might want to use a Vault to store secrets since it will provide with: </p>
+<ul>
+<li>a centralised placed so that pods will not have embedded secrets;</li>
+<li>a seamless way for developers to using secrets since the Vault is taking care of the whole lifecycle of the secret itself;</li>
+<li>limited blast radius in case of compromise: if a pod in your kubernetes cluster is compromised, it won’t be able to access all the secrets.</li>
+</ul>
+<p>I highly recommend exploring and testing these solutions, try to understand how they work and how they can integrate into your use case.<br>Stay safe, cheers!</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Posts</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scenario"><span class="toc-number">2.</span> <span class="toc-text">Scenario</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-parameter"><span class="toc-number">3.</span> <span class="toc-text">Command parameter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-Variables"><span class="toc-number">4.</span> <span class="toc-text">Environment Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Local-file-system"><span class="toc-number">5.</span> <span class="toc-text">Local file-system</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Database"><span class="toc-number">6.</span> <span class="toc-text">Database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vault"><span class="toc-number">7.</span> <span class="toc-text">Vault</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Does-IAM-solve-the-first-secret-problem"><span class="toc-number">7.1.</span> <span class="toc-text">Does IAM solve the first secret problem?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-this-A-cat-and-mouse-game"><span class="toc-number">8.</span> <span class="toc-text">What is this? A cat and mouse game?</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://rhaidiz.net/2022/07/18/first-secret-problem/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&text=The First Secret Problem"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&is_video=false&description=The First Secret Problem"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=The First Secret Problem&body=Check out this article: https://rhaidiz.net/2022/07/18/first-secret-problem/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&name=The First Secret Problem&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2022 rhaidiz
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/archives/">Posts</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- Umami Analytics -->
+
+    <script type="text/javascript">
+        var umami_endpoint = 'https://umami.rhaidiz.net/umami.js';
+
+        (function(){
+            var umm = document.createElement('script');
+            umm.type = 'text/javascript';
+            umm.async = true;
+			umm.defer = true;
+			umm.setAttribute("data-website-id", 'd59d467c-61fa-415b-ad60-c367f9af13a0');
+            umm.src = umami_endpoint;
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(umm);
+        }());
+    </script>
+
+
