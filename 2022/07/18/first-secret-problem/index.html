@@ -15,10 +15,11 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://rhaidiz.net/images/iam-workflow.png">
 <meta property="article:published_time" content="2022-07-18T00:00:00.000Z">
-<meta property="article:modified_time" content="2022-07-18T17:05:55.029Z">
+<meta property="article:modified_time" content="2022-07-27T13:55:30.679Z">
 <meta property="article:author" content="rhaidiz">
 <meta property="article:tag" content="security">
 <meta property="article:tag" content="secrets">
+<meta property="article:tag" content="engineering">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://rhaidiz.net/images/iam-workflow.png">
     
@@ -136,7 +137,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/secrets/" rel="tag">secrets</a>, <a class="tag-link-link" href="/tags/security/" rel="tag">security</a>
+        <a class="tag-link-link" href="/tags/engineering/" rel="tag">engineering</a>, <a class="tag-link-link" href="/tags/secrets/" rel="tag">secrets</a>, <a class="tag-link-link" href="/tags/security/" rel="tag">security</a>
     </div>
 
 
@@ -161,7 +162,7 @@
 <p>This is, in a nutshell, the first secret problem.</p>
 <p>How do we solve it? Unfortunately, we cannot solve it with a definite solution that would work in all situations, there’s no “one size fits all” solution (otherwise we would probably be able to fabricate security out of thin air).<br>In the remainder of this post I will describe a scenario and I shall attempt at describing a number of solutions that could be used to solve the “first secret problem”. Note that I will most likely not provide an exhaustive list of solutions but rather a general overview of the most common ones (or at least the ones that popped into my brain).</p>
 <h2 id="Scenario"><a href="#Scenario" class="headerlink" title="Scenario"></a>Scenario</h2><p>Let’s describe a simple scenario and the attacker we want to protect ourselves from.<br>You have a standalone application running that takes a backup of a folder and stores the backup on a network folder that is already mounted on the system. The backup you want to take is encrypted and therefore the backup application requires a password. In this example, the “first secret problem” is the password used to encrypt the backup.<br>As for the attacker, say you want to protect from a remote attacker that might want to attempt at compromising the machine where the backup script is running, e.i. the attacker does not have physical access to the machine itself. How shall we handle it?</p>
-<p><strong>However</strong>, before getting into juice part, allow me to make a quick remark: <strong>please</strong>, <strong>please</strong>, <strong>please</strong> 🙏, before picking up a solution (any solution) to any security issue, make sure you fully understand the problem you are trying to solve, the attack scenario you want to prevent and you want to achieve. Do not pick the most complicated solution just because it’s considered to be the “safest one”. You might end up implementing an incredible complicated mechanism to solve a problem you probably didn’t even have.</p>
+<p><strong>However</strong>, before getting into the juice part, allow me to make a quick remark: <strong>please</strong>, <strong>please</strong>, <strong>please</strong> 🙏, before picking up a solution (any solution) to any security issue, make sure you fully understand the problem you are trying to solve, the attack scenario you want to prevent and you want to achieve. Do not pick the most complicated solution just because it’s considered to be the “safest one”. You might end up implementing an incredible complicated mechanism to solve a problem you probably didn’t even have.</p>
 <h2 id="Command-parameter"><a href="#Command-parameter" class="headerlink" title="Command parameter"></a>Command parameter</h2><p>Imagine the case where the password is passed to the application via command line parameter.</p>
 <ul>
 <li><strong>Creation</strong>: passing it in the prompt as parameter.</li>
@@ -199,7 +200,7 @@
 <li>Taking advantage of the network topology so that the machine running the backup application is the only one allowed to access the machine running the database i.e. the backup machine has a physical wired connected to the database machine and the database machine is not physically connected to anything else.  This case falls right back into the “local file-system” scenario, the presence of a physical wire that connected the two machines is negligible from a security point of view (remember the assumption on the attacker).</li>
 <li>The machine running the database is located somewhere on the network and the backup application has credentials to access the database. This means that the backup application requires a pair username\password to access the database to retrieve the backup password. This case makes us loop back again in the recursive dilemma of the “first secret problem”: what are we supposed to do with the pair username\password?</li>
 </ol>
-<h2 id="Vault"><a href="#Vault" class="headerlink" title="Vault"></a>Vault</h2><p>We can think of vaults as an envolved databas. A vault is essentially a database that provides helpful functionalities for storing secrets, providing features such as encryption at rest and encryption in transit out of the box along with many others. A vault is also very helpful to developers for lifting the burden of handling secrets.<br>However, the way they integrate into your application is still very close to what we have seen above with databases:</p>
+<h2 id="Vault"><a href="#Vault" class="headerlink" title="Vault"></a>Vault</h2><p>We can think of vaults as an envolved database. A vault is essentially a database that provides helpful functionalities for storing secrets, providing features such as encryption at rest and encryption in transit out of the box along with many others. A vault is also very helpful to developers for lifting the burden of handling secrets.<br>However, the way they integrate into your application is still very close to what we have seen above with databases:</p>
 <ul>
 <li>A vault is typically running on a separate machine as a service;</li>
 <li>Requires applications to connect to it via some sort of authentication;</li>
