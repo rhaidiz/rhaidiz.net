@@ -3,6 +3,7 @@ title: "The First Secret Problem"
 tags:
 - security
 - secrets
+- engineering
 description: An overview of the first secret problems and possible solutions.
 date: 2022-07-18
 ---
@@ -34,7 +35,7 @@ Let’s describe a simple scenario and the attacker we want to protect ourselves
 You have a standalone application running that takes a backup of a folder and stores the backup on a network folder that is already mounted on the system. The backup you want to take is encrypted and therefore the backup application requires a password. In this example, the “first secret problem” is the password used to encrypt the backup. 
 As for the attacker, say you want to protect from a remote attacker that might want to attempt at compromising the machine where the backup script is running, e.i. the attacker does not have physical access to the machine itself. How shall we handle it?
 
-**However**, before getting into juice part, allow me to make a quick remark: **please**, **please**, **please** 🙏, before picking up a solution (any solution) to any security issue, make sure you fully understand the problem you are trying to solve, the attack scenario you want to prevent and you want to achieve. Do not pick the most complicated solution just because it’s considered to be the “safest one”. You might end up implementing an incredible complicated mechanism to solve a problem you probably didn’t even have.
+**However**, before getting into the juice part, allow me to make a quick remark: **please**, **please**, **please** 🙏, before picking up a solution (any solution) to any security issue, make sure you fully understand the problem you are trying to solve, the attack scenario you want to prevent and you want to achieve. Do not pick the most complicated solution just because it’s considered to be the “safest one”. You might end up implementing an incredible complicated mechanism to solve a problem you probably didn’t even have.
 
 ## Command parameter
 Imagine the case where the password is passed to the application via command line parameter.
@@ -87,7 +88,7 @@ We can consider two solutions for allowing only the backup application to access
 2. The machine running the database is located somewhere on the network and the backup application has credentials to access the database. This means that the backup application requires a pair username\password to access the database to retrieve the backup password. This case makes us loop back again in the recursive dilemma of the “first secret problem”: what are we supposed to do with the pair username\password?
 
 ## Vault
-We can think of vaults as an envolved databas. A vault is essentially a database that provides helpful functionalities for storing secrets, providing features such as encryption at rest and encryption in transit out of the box along with many others. A vault is also very helpful to developers for lifting the burden of handling secrets.
+We can think of vaults as an envolved database. A vault is essentially a database that provides helpful functionalities for storing secrets, providing features such as encryption at rest and encryption in transit out of the box along with many others. A vault is also very helpful to developers for lifting the burden of handling secrets.
 However, the way they integrate into your application is still very close to what we have seen above with databases:
 - A vault is typically running on a separate machine as a service;
 - Requires applications to connect to it via some sort of authentication;
