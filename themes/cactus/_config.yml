@@ -26,7 +26,7 @@ nav:
 # only 'mail' is an exception.
 social_links:
   github: https://github.com/rhaidiz
-  twitter: https://twitter.com/rhaidiz
+  mastodon: https://infosec.exchange/@rhaidiz
   mail: mailto:rhaidiz@outlook.com
 
 # Customize the overview with displaying a tagcloud on the index page.
