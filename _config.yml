@@ -5,7 +5,10 @@
 # Site
 title: Federico De Meo
 subtitle: rhaidiz
-description: "Hello, I'm Federico De Meo, you might find me online as rhaidiz. I one day received a magical box that would do almost everything I would ask it to do, as long as I was asking it in the right way. Two decades later, while waiting for my letter from Hogwarts, I practice my dark arts with computer science, the only other thing close to magical spells that I know how to cast."
+description: "I'm a computer scientist with focus on security engineering, the art and craft of finding security gaps and proposing security controls. I am currently a Security Engineer at Amazon and previously at Arduino.
+
+
+I hold a Ph.D. in Computer Science from the University of Verona, where my research focused on developing a formal model to identify complex attacks on web applications. The result of my thesis was published in the <a target='_blank' href='https://content.iospress.com/articles/journal-of-computer-security/jcs181262?ref=ghost.rhaidiz.net'>\"Journal of Computer Security\"</a>. This experience was an invaluable opportunity to enable the development of my analytical skills while gaining a deeper, and philosophical understanding, of cybersecurity."
 keywords:
 author: Federico De Meo
 language:
@@ -74,6 +77,9 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: cactus
+# _config.yml
+theme_config:
+  colorscheme: white
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

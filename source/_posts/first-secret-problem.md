@@ -1,5 +1,5 @@
 ---
-title: "The First Secret Problem"
+title: "The \"First Secret\" Problem"
 tags:
 - security
 - secrets
@@ -8,7 +8,6 @@ description: An overview of the first secret problems and possible solutions.
 date: 2022-07-18
 ---
 
-## Introduction
 Trust is an important property. Actually, it is the single most important property of them all. With trust we can bootstrap security, as security cannot be fabricated out of thin air. However, trust has an inherited problem, it requires you to assume that something is true, verified, confidential, integral or, simply, secure.
 This is why, as a rule of thumb, a system, to be secure, should be built so that it doesn’t make many trust assumptions.
 
