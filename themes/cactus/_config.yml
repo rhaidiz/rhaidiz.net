@@ -14,10 +14,10 @@ direction: ltr
 # A pair 'Key: url' will result in a link to 'url' with the name 'Key' in the
 # navigation menu. Optionally, you can add translations for the 'Key' in
 # languages/*.yml
-nav:
- home: /
- Posts: /archives/
- Academic: https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De
+# nav:
+#  home: /
+#  Posts: /archives/
+#  dblp: https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De
 
 
 # Links to your social media accounts.
