@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="An overview of the first secret problems and possible solutions.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The First Secret Problem">
+<meta property="og:title" content="The &quot;First Secret&quot; Problem">
 <meta property="og:url" content="https://rhaidiz.net/2022/07/18/first-secret-problem/index.html">
 <meta property="og:site_name" content="Federico De Meo">
 <meta property="og:description" content="An overview of the first secret problems and possible solutions.">
 <meta property="og:locale">
 <meta property="og:image" content="https://rhaidiz.net/images/iam-workflow.png">
 <meta property="article:published_time" content="2022-07-18T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-10T22:05:15.356Z">
+<meta property="article:modified_time" content="2025-01-18T11:35:27.160Z">
 <meta property="article:author" content="Federico De Meo">
 <meta property="article:tag" content="security">
 <meta property="article:tag" content="secrets">
@@ -41,7 +41,7 @@
         
     
     <!-- title -->
-    <title>The First Secret Problem</title>
+    <title>The &#34;First Secret&#34; Problem</title>
     <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
@@ -60,94 +60,33 @@
 
 <body class="max-width mx-auto px3 ltr">
     
-      <div id="header-post">
-  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/archives/">Posts</a></li>
-         
-          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
-        
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        
-        <li><a class="icon" href="/2019/06/10/wafex/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://rhaidiz.net/2022/07/18/first-secret-problem/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&text=The First Secret Problem"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&is_video=false&description=The First Secret Problem"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=The First Secret Problem&body=Check out this article: https://rhaidiz.net/2022/07/18/first-secret-problem/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&name=The First Secret Problem&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scenario"><span class="toc-number">2.</span> <span class="toc-text">Scenario</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-parameter"><span class="toc-number">3.</span> <span class="toc-text">Command parameter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-Variables"><span class="toc-number">4.</span> <span class="toc-text">Environment Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Local-file-system"><span class="toc-number">5.</span> <span class="toc-text">Local file-system</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Database"><span class="toc-number">6.</span> <span class="toc-text">Database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vault"><span class="toc-number">7.</span> <span class="toc-text">Vault</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-this-A-cat-and-mouse-game"><span class="toc-number">8.</span> <span class="toc-text">What is this? A cat and mouse game?</span></a></li></ol>
-    </div>
-  </span>
-</div>
-
+	<!-- partial('_partial/post/actions_desktop') -->
     
     <div class="content index my4">
         
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        The First Secret Problem
-    </h1>
-
-
-
+      <a href="/"><div id="logo" style="background-image: url(/images/logo.png)"></div></a>
     <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">Federico De Meo</span>
-      </span>
       
     <div class="postdate">
         <time datetime="2022-07-18T00:00:00.000Z" itemprop="datePublished">2022-07-18</time>
     </div>
 
 
-      
-    <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/engineering/" rel="tag">engineering</a>, <a class="tag-link-link" href="/tags/secrets/" rel="tag">secrets</a>, <a class="tag-link-link" href="/tags/security/" rel="tag">security</a>
-    </div>
+	  </div>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        The &#34;First Secret&#34; Problem
+    </h1>
 
 
-    </div>
+
   </header>
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Trust is an important property. Actually, it is the single most important property of them all. With trust we can bootstrap security, as security cannot be fabricated out of thin air. However, trust has an inherited problem, it requires you to assume that something is true, verified, confidential, integral or, simply, secure.<br>This is why, as a rule of thumb, a system, to be secure, should be built so that it doesn’t make many trust assumptions.</p>
+    <p>Trust is an important property. Actually, it is the single most important property of them all. With trust we can bootstrap security, as security cannot be fabricated out of thin air. However, trust has an inherited problem, it requires you to assume that something is true, verified, confidential, integral or, simply, secure.<br>This is why, as a rule of thumb, a system, to be secure, should be built so that it doesn’t make many trust assumptions.</p>
 <p>A very good example of such trust issue is the so-called “first secret problem”. There is not a formal definition of the “first secret problem” but we could refer to it as the problem of bootstrapping a system which requires some confidential information (e.g., a password or an authentication token) in order to work. Imagine you have a bash script that runs as a cron job and queries an API using an authentication token. The authentication token is our secret and we need the script to use it. The problems that you might have to face when handling such secret are:</p>
 <ul>
 <li><strong>Creation</strong>: how do we create the secret?</li>
@@ -249,32 +188,26 @@
 
     <div id="nav-footer" style="display: none">
       <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/archives/">Posts</a></li>
-         
-          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
         
       </ul>
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scenario"><span class="toc-number">2.</span> <span class="toc-text">Scenario</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-parameter"><span class="toc-number">3.</span> <span class="toc-text">Command parameter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-Variables"><span class="toc-number">4.</span> <span class="toc-text">Environment Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Local-file-system"><span class="toc-number">5.</span> <span class="toc-text">Local file-system</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Database"><span class="toc-number">6.</span> <span class="toc-text">Database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vault"><span class="toc-number">7.</span> <span class="toc-text">Vault</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Does-IAM-solve-the-first-secret-problem"><span class="toc-number">7.1.</span> <span class="toc-text">Does IAM solve the first secret problem?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-this-A-cat-and-mouse-game"><span class="toc-number">8.</span> <span class="toc-text">What is this? A cat and mouse game?</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Scenario"><span class="toc-number">1.</span> <span class="toc-text">Scenario</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-parameter"><span class="toc-number">2.</span> <span class="toc-text">Command parameter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Environment-Variables"><span class="toc-number">3.</span> <span class="toc-text">Environment Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Local-file-system"><span class="toc-number">4.</span> <span class="toc-text">Local file-system</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Database"><span class="toc-number">5.</span> <span class="toc-text">Database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vault"><span class="toc-number">6.</span> <span class="toc-text">Vault</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Does-IAM-solve-the-first-secret-problem"><span class="toc-number">6.1.</span> <span class="toc-text">Does IAM solve the first secret problem?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-this-A-cat-and-mouse-game"><span class="toc-number">7.</span> <span class="toc-text">What is this? A cat and mouse game?</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://rhaidiz.net/2022/07/18/first-secret-problem/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&text=The First Secret Problem"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&is_video=false&description=The First Secret Problem"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=The First Secret Problem&body=Check out this article: https://rhaidiz.net/2022/07/18/first-secret-problem/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The First Secret Problem"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&name=The First Secret Problem&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&text=The &#34;First Secret&#34; Problem"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The &#34;First Secret&#34; Problem"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&is_video=false&description=The &#34;First Secret&#34; Problem"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=The &#34;First Secret&#34; Problem&body=Check out this article: https://rhaidiz.net/2022/07/18/first-secret-problem/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The &#34;First Secret&#34; Problem"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The &#34;First Secret&#34; Problem"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The &#34;First Secret&#34; Problem"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&title=The &#34;First Secret&#34; Problem"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://rhaidiz.net/2022/07/18/first-secret-problem/&name=The &#34;First Secret&#34; Problem&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -292,17 +225,11 @@
     
     <footer id="footer">
   <div class="footer-left">
-    Copyright &copy; 2023 Federico De Meo
+    Copyright &copy; 2025 Federico De Meo
   </div>
   <div class="footer-right">
     <nav>
       <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/archives/">Posts</a></li>
-         
-          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
         
       </ul>
     </nav>

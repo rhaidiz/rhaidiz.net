@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://rhaidiz.net/images/bettercap.png">
 <meta property="og:image" content="https://rhaidiz.net/images/final.png">
 <meta property="article:published_time" content="2018-10-25T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-08-10T22:05:15.356Z">
+<meta property="article:modified_time" content="2025-01-18T11:35:27.160Z">
 <meta property="article:author" content="Federico De Meo">
 <meta property="article:tag" content="Wi-Fi">
 <meta property="article:tag" content="cache-poison">
@@ -70,64 +70,21 @@
 
 <body class="max-width mx-auto px3 ltr">
     
-      <div id="header-post">
-  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/archives/">Posts</a></li>
-         
-          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
-        
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" href="/2019/02/27/dribble-router-vulns-dlink-alcatel-cve-2019-6969-cve-2019-6968-cve-2019-7163/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&text=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&is_video=false&description=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Project Dribble: hacking Wi-Fi with cached JavaScript&body=Check out this article: https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&title=Project Dribble: hacking Wi-Fi with cached JavaScript"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://rhaidiz.net/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&name=Project Dribble: hacking Wi-Fi with cached JavaScript&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Description"><span class="toc-number">1.</span> <span class="toc-text">Description</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Let%E2%80%99s-test-it-out-%E2%80%A6-for-real-%E2%80%A6-almost"><span class="toc-number">2.</span> <span class="toc-text">Let’s test it out … for real … almost!</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wrapping-up"><span class="toc-number">3.</span> <span class="toc-text">Wrapping up</span></a></li></ol>
-    </div>
-  </span>
-</div>
-
+	<!-- partial('_partial/post/actions_desktop') -->
     
     <div class="content index my4">
         
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
+      <a href="/"><div id="logo" style="background-image: url(/images/logo.png)"></div></a>
+    <div class="meta">
+      
+    <div class="postdate">
+        <time datetime="2018-10-25T00:00:00.000Z" itemprop="datePublished">2018-10-25</time>
+    </div>
+
+
+	  </div>
     
     <h1 class="posttitle" itemprop="name headline">
         Project Dribble: hacking Wi-Fi with cached JavaScript
@@ -135,24 +92,6 @@
 
 
 
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">Federico De Meo</span>
-      </span>
-      
-    <div class="postdate">
-        <time datetime="2018-10-25T00:00:00.000Z" itemprop="datePublished">2018-10-25</time>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/Wi-Fi/" rel="tag">Wi-Fi</a>, <a class="tag-link-link" href="/tags/bettercap/" rel="tag">bettercap</a>, <a class="tag-link-link" href="/tags/cache/" rel="tag">cache</a>, <a class="tag-link-link" href="/tags/cache-poison/" rel="tag">cache-poison</a>, <a class="tag-link-link" href="/tags/dnsmasq/" rel="tag">dnsmasq</a>, <a class="tag-link-link" href="/tags/hostapd/" rel="tag">hostapd</a>, <a class="tag-link-link" href="/tags/node-js/" rel="tag">node.js</a>, <a class="tag-link-link" href="/tags/raspberry/" rel="tag">raspberry</a>, <a class="tag-link-link" href="/tags/rpi/" rel="tag">rpi</a>, <a class="tag-link-link" href="/tags/wifi/" rel="tag">wifi</a>
-    </div>
-
-
-    </div>
   </header>
   
 
@@ -277,12 +216,6 @@
 
     <div id="nav-footer" style="display: none">
       <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/archives/">Posts</a></li>
-         
-          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
         
       </ul>
     </div>
@@ -320,17 +253,11 @@
     
     <footer id="footer">
   <div class="footer-left">
-    Copyright &copy; 2023 Federico De Meo
+    Copyright &copy; 2025 Federico De Meo
   </div>
   <div class="footer-right">
     <nav>
       <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/archives/">Posts</a></li>
-         
-          <li><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/pers/hd/m/Meo:Federico_De">Academic</a></li>
         
       </ul>
     </nav>

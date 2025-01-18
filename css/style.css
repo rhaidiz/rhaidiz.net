@@ -172,7 +172,6 @@
   margin-left: 4rem;
 }
 .my4 {
-  margin-top: 4rem;
   margin-bottom: 4rem;
 }
 .mxn1 {
@@ -458,10 +457,33 @@
   src: url("../lib/ibmplex/ibm-plex-mono-v19-latin-regular.eot");
   src: url("../lib/ibmplex/ibm-plex-mono-v19-latin-regular.eot?#iefix") format('embedded-opentype'), url("../lib/ibmplex/ibm-plex-mono-v19-latin-regular.woff2") format('woff2'), url("../lib/ibmplex/ibm-plex-mono-v19-latin-regular.woff") format('woff'), url("../lib/ibmplex/ibm-plex-mono-v19-latin-regular.ttf") format('truetype'), url("../lib/ibmplex/ibm-plex-mono-v19-latin-regular.svg#IBMPlexMono") format('svg');
 }
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+@font-face {
+  font-display: swap;
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../lib/Fira_Sans/FiraSans-Regular.ttf") format('truetype'), /* Fire Sans */;
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Fira Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../lib/Fira_Sans/FiraSans-Bold.ttf") format('truetype'), /* Libre Baskerville */;
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Libre Baskerville';
+  font-style: normal;
+  font-weight: 400;
+  src: url("../lib/Libre_Baskerville/LibreBaskerville-Regular.ttf") format('truetype'), /* Libre Baskerville */;
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Libre Baskerville';
+  font-style: normal;
+  font-weight: 700;
+  src: url("../lib/Libre_Baskerville/LibreBaskerville-Bold.ttf") format('truetype'),;
 }
 html {
   height: 100%;
@@ -489,6 +511,9 @@ body {
   -moz-hyphens: auto;
   -ms-hyphens: auto;
   -webkit-hyphens: auto;
+  font-family: Libre Baskerville;
+  line-height: 1.8em;
+  font-size: 1.15em;
 }
 .content code {
   hyphens: manual;
@@ -499,6 +524,8 @@ body {
 .content a {
   color: #000;
   text-decoration: none;
+  font-size: 1.15em;
+  font-family: Fira Sans;
   background-image: linear-gradient(transparent, transparent 5px, #000 5px, #000);
   background-position: bottom;
   background-size: 100% 6px;
@@ -562,6 +589,7 @@ body {
 }
 .max-width {
   max-width: 48rem;
+  margin-top: 5em;
 }
 @media (max-width: 480px) {
   .px3 {
@@ -592,6 +620,7 @@ body {
   font-style: normal;
   font-size: 1.5rem;
   line-height: 2rem;
+  font-family: Fira Sans;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
@@ -686,9 +715,11 @@ body {
   }
 }
 #header-post {
-  position: fixed;
   top: 2rem;
-  right: 0;
+  position: fixed;
+  background: #fff;
+  left: 0;
+  left: 2em;
   display: inline-block;
   float: right;
 }
@@ -1065,16 +1096,24 @@ body {
 .academia-item .author {
   color: #737373;
 }
+article {
+  margin-bottom: 5em;
+}
+article header {
+  margin-top: 10em;
+  margin-bottom: 2em;
+}
 article header .posttitle {
   margin-top: 0;
   margin-bottom: 0;
   text-transform: none;
-  font-size: 1.5em;
+  font-size: 2.5em;
   line-height: 1.25;
+  font-family: 'Fira Sans';
 }
 article header .meta {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 article header .meta * {
   color: #2ca2d4;
@@ -1088,6 +1127,18 @@ article header .author {
 }
 article header .postdate {
   display: inline;
+}
+article .content p,
+article .content ul,
+article .content ol {
+  font-family: Libre Baskerville;
+  font-size: 1.15em;
+  line-height: 1.9em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+article .content h2 {
+  font-family: Fira Sans;
 }
 article .content h2:before {
   position: absolute;
@@ -1481,4 +1532,15 @@ code {
 }
 .highlight .line {
   height: 22px;
+}
+article header #logo {
+  display: inline-block;
+  float: left;
+  margin-right: 20px;
+  margin-top: 1em;
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+  background-size: 60px 60px;
+  background-repeat: no-repeat;
 }
