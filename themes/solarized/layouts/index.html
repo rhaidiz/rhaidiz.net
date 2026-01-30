@@ -1,0 +1,44 @@
+{{ define "header" }}
+  {{ $opts := dict "transpiler" "dartsass" }}
+  {{ with resources.Get "sass/index.scss" }}
+  {{ with . | toCSS $opts }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}">
+  {{ end }}
+  {{ end }}
+{{ end }}
+{{ define "main" }}
+
+<header>
+  <img src="{{ .Site.Params.logo}}" />
+  <h1>{{ .Site.Title }}</h1>
+</header>
+  <div>
+  {{ .Site.Params.Description | markdownify }}
+  </div>
+
+  <p>
+<h1>Posts</h1>
+<ul>
+{{ range .Site.RegularPages.ByPublishDate.Reverse }}
+  <li class="post-item">
+	<div class="date">{{ .Date | time.Format "2006-01-02" }} </div>
+	<span>
+	  <a href="{{ .RelPermalink }}">
+	    {{ .Title }}
+      </a>
+	</span>
+  </li>
+{{ end }}
+</ul>
+  </p>
+  <h1>Academic</h1>
+  <div class="items-container">
+	<ul>
+  {{ range .Site.Params.team_members}}
+
+  <li><a class="title" href="{{ .url }}">{{ .title }}</a> <span class="authors">({{ .authors }})</span> - <span class="conference"> {{ .conference }}</span>.</li>
+  {{ end }}
+	</ul>
+    </div>
+{{ end }}
+

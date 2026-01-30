@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+
+	
+	  <link rel="shortcut icon" href="http://localhost:1313/favicon.ico?v=1">
+	
+
+
+	
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+
+	
+	
+	  <title>Federico De Meo</title>
+	
+
+	<link rel="me" href="https://infosec.exchange/@rhaidiz">
+
+
+	
+	
+	  
+		<link rel="stylesheet" href="/sass/toggle-button.css">
+	  
+	
+
+	
+	
+	  
+		<link rel="stylesheet" href="/sass/main.css">
+	  
+	
+
+	
+	
+
+</head>
+  <body>
+
+  <div>
+    <div class="control">
+    <label class="dark">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+        </svg>
+      <input type="radio" class="darkradio" name="radio" value="dark" />
+    </label>
+
+    <label class="light">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+          <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+        </svg>
+      <input type="radio" class="lightradio" name="radio" value="light" />
+    </label>
+
+    <label class="auto">
+  	<svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      width="1em"
+      height="1em"
+      class="theme-toggle__dark-inner"
+      fill="currentColor"
+      viewBox="0 0 32 32"
+    >
+      <path d="M16 9c3.9 0 7 3.1 7 7s-3.1 7-7 7" />
+      <path d="M16 .5C7.4.5.5 7.4.5 16S7.4 31.5 16 31.5 31.5 24.6 31.5 16 24.6.5 16 .5zm0 28.1V23c-3.9 0-7-3.1-7-7s3.1-7 7-7V3.4C23 3.4 28.6 9 28.6 16S23 28.6 16 28.6z" />
+    </svg>
+      <input type="radio" class="autoradio" name="radio" checked value="auto" />
+    </label>
+  </div>
+</div>
+
+<script>
+  
+  const radios = document.querySelectorAll('input[name="radio"]');
+  
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      let valueToStore;
+  
+      switch (radio.value) {
+        case 'light':
+          valueToStore = 'light';
+          break;
+  
+        case 'dark':
+          valueToStore = 'dark';
+          break;
+  
+        case 'auto':
+          valueToStore = 'auto';
+          break;
+      }
+  
+      localStorage.setItem('selectedOption', valueToStore);
+    });
+  });
+
+  const savedValue = localStorage.getItem('selectedOption') ?? 'auto';
+  if (savedValue == 'dark') {
+	document.getElementsByClassName('darkradio')[0].click();
+  } else if (savedValue == 'light') {
+	document.getElementsByClassName('lightradio')[0].click();
+  } else {
+  document.getElementsByClassName('autoradio')[0].click();
+  }
+  
+</script>
+	
+<h1>Posts</h1>
+<ul>
+
+  <li>
+	2019-02-27 - 
+    <a href="/posts/dribble-router-vulns-dlink-alcatel-cve-2019-6969-cve-2019-6968-cve-2019-7163/">
+	  D-Link DVA-5592 missing authentication check [CVE-2019-6969] D-Link DVA-5592 Self XSS [CVE-2019-6968] Alcatel LINKZONE no authentication control whatsoever [CVE-2019-7163]
+    </a>
+  </li>
+
+</ul>
+
+
+  </body>
+</html>

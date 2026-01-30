@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cache on Federico De Meo</title>
+    <link>http://localhost:1313/tags/cache/</link>
+    <description>Recent content in Cache on Federico De Meo</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 25 Oct 2018 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/cache/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Project Dribble: hacking Wi-Fi with cached JavaScript</title>
+      <link>http://localhost:1313/posts/dribble-stealing-wifi-password-via-browsers-cache-poisoning/</link>
+      <pubDate>Thu, 25 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/dribble-stealing-wifi-password-via-browsers-cache-poisoning/</guid>
+      <description>&lt;style&gt;&#xA;@font-face {&#xA;  font-family: &#34;Harry&#34;;&#xA;  src: url(/fonts/hp.ttf) format(&#34;truetype&#34;);&#xA;}&#xA;&lt;/style&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been meaning to work on this little project for quite some time, but life got in the way and I was always too busy. Now I finally got some time back for myself and I&amp;rsquo;m here talking about it.&lt;/p&gt;&#xA;&lt;p&gt;Quite some time ago I checked out the Wireless LAN Security Megaprimer course by Vivek Ramachandran (very nice, highly recommended) and incidentally in the same period I was doing some traveling which meant I got to stay in different hotels all providing Wi-Fi.  Needless to say, my brain started to go crazy and I&amp;rsquo;ve thus been thinking about &amp;ldquo;unconventional&amp;rdquo; ways to get Wi-Fi passwords.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

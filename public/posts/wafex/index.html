@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+
+	
+	  <link rel="shortcut icon" href="http://localhost:1313/favicon.ico?v=1">
+	
+
+
+	
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+
+	
+	
+	  <title>Web Application Formal Exploiter: a formal and automated approach to exploit multiple vulnerabilities of web applications&#34;</title>
+	
+
+	<link rel="me" href="https://infosec.exchange/@rhaidiz">
+
+
+	
+	
+	  
+		<link rel="stylesheet" href="/sass/toggle-button.css">
+	  
+	
+
+	
+	
+	  
+		<link rel="stylesheet" href="/sass/main.css">
+	  
+	
+
+	
+  
+  <link rel="stylesheet" href="/sass/syntax-light.css" media="(prefers-color-scheme: light)">
+  
+  
+  <link rel="stylesheet" href="/sass/syntax-dark.css" media="(prefers-color-scheme: dark)">
+
+  
+  
+  
+    <link rel="stylesheet" href="/sass/post.css">
+  
+  
+  
+  
+  <link rel="preload" href="/fonts/Fira_Sans/FiraSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  
+  
+  <link rel="preload" href="/fonts/Fira_Sans/FiraSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  
+  
+  <link rel="preload" href="/fonts/Fira_Sans/FiraSans-ExtraLight.woff2" as="font" type="font/woff2" crossorigin>
+  
+  
+  <link rel="preload" href="/fonts/Libre_Baskerville/libre-baskerville-v7-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+
+
+</head>
+  <body>
+
+  <div>
+    <div class="control">
+    <label class="dark">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+        </svg>
+      <input type="radio" class="darkradio" name="radio" value="dark" />
+    </label>
+
+    <label class="light">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+          <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+        </svg>
+      <input type="radio" class="lightradio" name="radio" value="light" />
+    </label>
+
+    <label class="auto">
+  	<svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      width="1em"
+      height="1em"
+      class="theme-toggle__dark-inner"
+      fill="currentColor"
+      viewBox="0 0 32 32"
+    >
+      <path d="M16 9c3.9 0 7 3.1 7 7s-3.1 7-7 7" />
+      <path d="M16 .5C7.4.5.5 7.4.5 16S7.4 31.5 16 31.5 31.5 24.6 31.5 16 24.6.5 16 .5zm0 28.1V23c-3.9 0-7-3.1-7-7s3.1-7 7-7V3.4C23 3.4 28.6 9 28.6 16S23 28.6 16 28.6z" />
+    </svg>
+      <input type="radio" class="autoradio" name="radio" checked value="auto" />
+    </label>
+  </div>
+</div>
+
+<script>
+  
+  const radios = document.querySelectorAll('input[name="radio"]');
+  
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      let valueToStore;
+  
+      switch (radio.value) {
+        case 'light':
+          valueToStore = 'light';
+          break;
+  
+        case 'dark':
+          valueToStore = 'dark';
+          break;
+  
+        case 'auto':
+          valueToStore = 'auto';
+          break;
+      }
+  
+      localStorage.setItem('selectedOption', valueToStore);
+    });
+  });
+
+  const savedValue = localStorage.getItem('selectedOption') ?? 'auto';
+  if (savedValue == 'dark') {
+	document.getElementsByClassName('darkradio')[0].click();
+  } else if (savedValue == 'light') {
+	document.getElementsByClassName('lightradio')[0].click();
+  } else {
+  document.getElementsByClassName('autoradio')[0].click();
+  }
+  
+</script>
+	
+  <div class="toplogo">
+    <a href="/">
+  	<img src="/logo.png" />
+    </a>
+  </div>
+  
+  <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+    </header>
+
+    <div class="content" itemprop="articleBody">
+  	<time datetime="2019-06-10">Jun 10, 2019</time>
+  	<h1>Web Application Formal Exploiter: a formal and automated approach to exploit multiple vulnerabilities of web applications&#34;</h1>
+	<div class="post-tags">
+  
+    <a href="/tags/phd/" class="tag-badge">Phd</a>
+  
+    <a href="/tags/wafex/" class="tag-badge">Wafex</a>
+  
+    <a href="/tags/mbt/" class="tag-badge">MBT</a>
+  
+    <a href="/tags/model-based-testing/" class="tag-badge">Model-Based Testing</a>
+  
+    <a href="/tags/formal-analysis/" class="tag-badge">Formal Analysis</a>
+  
+    <a href="/tags/wapt/" class="tag-badge">WAPT</a>
+  
+    <a href="/tags/web-application-security/" class="tag-badge">Web Application Security</a>
+  
+    <a href="/tags/multi-state-attacks/" class="tag-badge">Multi-State Attacks</a>
+  
+    <a href="/tags/exploitation/" class="tag-badge">Exploitation</a>
+  
+    <a href="/tags/model-checking/" class="tag-badge">Model-Checking</a>
+  
+</div>
+
+  	<h2 id="introduction">Introduction</h2>
+<p>In this post I want to briefly present the result of my Ph.D. research. I won&rsquo;t go into the technical details of the project, that you can find in my <a href="https://iris.univr.it/retrieve/handle/11562/979770/113719/thesis%20de%20meo.pdf">Ph.D. thesis</a>, but I&rsquo;ll rather give an high-level overview of the work. I hope it might be of interest and inspiration to some of you.</p>
+<h2 id="where-i-started">Where I started</h2>
+<p>When I finished my MSc I had a pretty good understanding of the main vulnerabilities of web applications. I had also played around with most of the main vulnerable by design web applications such as <a href="https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project">WebGoat</a>, <a href="http://www.dvwa.co.uk">DVWA</a> and <a href="https://google-gruyere.appspot.com">Gruyere</a> however, I felt like something was missing. Although everything I had studied so far was clear to me, I found asking myself: &ldquo;alright, but what would a real attacker actually do once he found an issue?&rdquo;. The goal of a real attacker is not to <strong>find</strong>, for instance, an SQLi but rather to <strong>exploit</strong> the SQLi to achieve something, right??</p>
+<p>Imagine playing a video game. A vulnerability is a &ldquo;basic move&rdquo; like pressing the <code>K</code> button that results in having your character do a kick.</p>
+<p><img src="/images/step1.png" alt="step1"></p>
+<p>But a kick is not enough, you have to press multiple buttons if you actually want to inflict some pain.</p>
+<p><img src="/images/step2.png" alt="step2"></p>
+<p>I thus started investigating how vulnerabilities might be combined together, how they could be used in a more realistic attack scenario in order to compromise a web application. I read many different resources, three of which turned out to be very significant to me.</p>
+<h3 id="the-common-weakness-enumeration">The <a href="https://cwe.mitre.org">Common Weakness Enumeration</a>:</h3>
+<blockquote>
+<p>CWE is a community-developed list of common software security weaknesses. It serves as a common language, a measuring stick for software security tools, and as a baseline for weakness identification, mitigation, and prevention efforts.</p>
+</blockquote>
+<p>What I found interesting about the CWE was that each vulnerability has a section called &ldquo;Common Consequences&rdquo; where you can find an high-level description of the most common ways an attacker might exploit that issue to compromise the security of a web application (or software in general). This was a first step into the right direction as I could start to better understand the common result of exploitning a given vulnerability.</p>
+<h3 id="the-book-chained-exploits-advanced-hacking-attacks-from-start-to-finish">The book &ldquo;Chained Exploits: Advanced Hacking Attacks from Start to Finish&rdquo;.</h3>
+<p>This was a very fun reading, maybe a bit old nowadays, but still it gives a interesting insight in the mind of an attacker trying to compromise a system. The book is a collection of hacks perpetrated by the main character Phoenix. You get to follow Phoenix&rsquo;s thoughts and reasoning process while he attempts to break into places. From a technical point of view is not too interesting but again, the way of thinking is what I found more fascinating especially for newcomers.</p>
+<h3 id="attack-treesgraphs">Attack trees\graphs.</h3>
+<p>Let me borrow the first line from Wikipedia:</p>
+<blockquote>
+<p>Attack trees are conceptual diagrams showing how an asset, or target, might be attacked.</p>
+</blockquote>
+<p>Pretty self explanatory. You basically have a means, more or less formal, to represent attacks. Attacks are divided into steps that define how to get from a starting point all the way to a goal point. I read some academical publications on the subject and it was immediately obvious that attack trees\graphs are mainly used to represent known attacks to software known to be vulnerable to those attacks.
+I also found some research where steps where decorated with pre and post conditions to increase the details of the tree\graph. For example, you can use attack trees\graphs to represent your network, where you might have an ancient Windows XP machine. You can then represent the fact that this Windows XP machine is vulnerable to CVE-XYZ which will allow an attacker to access a Red Hat machine (for whatever reason).</p>
+<p>But what if you don&rsquo;t know if your software is vulnerable? What if you only have the starting point and the goal point?</p>
+<p>This is where my Ph.D. journey (sort of) began and brought me to proposing the Web Application Formal Exploiter (WAFEx), a formal approach to testing the security of web applications based on the combination of multiple steps.</p>
+<h2 id="web-application-formal-exploiter-wafex">Web Application Formal Exploiter (WAFEx)</h2>
+<p>WAFEx is a <a href="https://en.wikipedia.org/wiki/Model-based_testing">Model-Based Testing</a> approach which combines model-checking and testing techniques to find and exploit complex attack scenarios automatically. It does sound cool, doesn&rsquo;t it? To better explain what that means, allow me to set a scenario to make things funnier and easier:</p>
+<p>You&rsquo;re a security expert working for a gigantic money maker corporation you don&rsquo;t even know what they actually do. One day, this sweet old man approaches you.</p>
+<p><img src="/images/palp.png" alt="palpatine"></p>
+<p>You become friends and he gives you a bad ass nickname. The sweet old man sees something in you and he wants you to be a part of a secret project he&rsquo;s been working on. He shows you a web site and tells you that it contains the blueprints for something that will change humanity forever and, of course, he wants to make sure that no one can have access to such data.</p>
+<p>You start poking around on the website and soon enough you find a Reflected XSS, you go to the sweet old man and tell him you found the issue. He looks at you and asks &ldquo;can it be used to access the blueprint? and how would you do it?&rdquo;
+At this point you will probably come up with a bunch of sentences beginning with &ldquo;if&rdquo;, such as &ldquo;if condition X holds, then someone might do Y, which will result in Z which in turns will result in accessing the blueprint&rdquo;.</p>
+<p>This is where WAFEx comes in, WAFEx is not meant to find security issues such as a Reflected XSS,  WAFEx is meant to be used to answer questions such as &ldquo;can someone access the blueprint on the sweet old man&rsquo;s website?&rdquo;.</p>
+<p><strong>DISCLAIMER:</strong> before proceeding with the description of WAFEx, I feel like I have to make a clarification. From the example above it might, at first impression, look like that if you find an XSS that you either don&rsquo;t know how to exploit or cannot use to harm anything of interest, then it is not important and you don&rsquo;t need to fix it. This is far from being the case, whenever an issue is found it should always be planned to fix it &hellip; eventually. This in turns might open another question: &ldquo;but if I still have to fix everything, why do I need WAFEx to tell me if an issue can or cannot be used to access the blueprint?&rdquo;. Here some reasons:</p>
+<ul>
+<li>convincing your boss to fix it immediately,</li>
+<li>having a better understanding of how that particular vulnerability might be exploited on your specific target,</li>
+<li>identifying the minimum number of vulnerabilities to fix in order for the blueprint to be safe,</li>
+</ul>
+<p>and if that is still not enough &hellip;</p>
+<p><img src="/images/tbbt.png" alt="because we can"></p>
+<h2 id="how-does-wafex-work">How does WAFEx work</h2>
+<p>I will now explain how WAFEx works by means of the following workflow. If you are already familiar with MBT, this picture won&rsquo;t be anything you haven&rsquo;t seen before.</p>
+<p><img src="/images/mbt_workflow.png" alt="MBT workflow"></p>
+<p>Here is a brief explanation of what is going on:</p>
+<ol>
+<li>A formal model of the web application has to be created. This model essentially represents the web application and how it interacts with other entities such as the file-system, the database and the end user;</li>
+<li>The formal model must be analyzed in search of attacks. This means feeding the model of the web application to an attacker that will look for attacks;</li>
+<li>Finally, with the result of the previous step, we test that the attacks found by the analysis can be replicated on the real web application.</li>
+</ol>
+<h3 id="1-creating-the-formal-model">(1) Creating the formal model</h3>
+<p>The first thing is creating the formal model of the web application you want to test. The model of a web application comprises five entities: the <strong>web attacker</strong>, the <strong>database</strong> the <strong>web application itself</strong> and an <strong>honest client</strong>.</p>
+<p>It sounds like a lot of work, doesn&rsquo;t it? Not to worry, as the formalisation I proposed is such that you only have to take care of one entity: the <strong>web application</strong>. All other entities are going to be the same for every scenario. In fact, all other entities are formalised in such a way to represent the general behaviour of the real entity they take the name from and thus are not tied to a specific scenario.</p>
+<p>Let me briefly describe the 4 static entities:</p>
+<ul>
+<li>the <strong>web attacker</strong> is essentially the <a href="https://en.wikipedia.org/wiki/Dolev%E2%80%93Yao_model">Dolev-Yao (DY)</a> attacker model extended with a particular constant <code>malicious</code> that gives him the ability to perform whatever action he pleases (more on this later, bear with me);</li>
+<li>the <strong>file-system</strong> defines 2 basic operations: read and write of files;</li>
+<li>the <strong>database</strong> defines 6 basic operations: query, insert, delete, update, read\write from file-system;</li>
+<li>the <strong>honest client</strong>, is basically a dummy version of an user in front of a browser interacting with the web application.</li>
+</ul>
+<p>The entities described above can be used in every scenario, while you only have to take care of creating the model for the web application. This can be done by using a <a href="https://github.com/rhaidiz/wafex-model-creator">Burp Proxy plug-in</a> I specifically wrote for this purpose. WAFEx model creator is a Burp Proxy extension meant to ease the process of creating the model of a web application. The way it works is that you browse the web application via Burp and collect requests. Once you have a pool of requests of your interest, you send them to the WAFEx model creator.</p>
+<p><img src="/images/wafex_creator1.png" alt="WAFEx creator 1"></p>
+<p>The WAFEx model creator uses the requests to create a skeleton model of the web application. It will automatically generates the template for all the requests. You only need to further refine the model by including interaction with the database, the file-system and any details want to test.</p>
+<p><img src="/images/wafex_creator2.png" alt="WAFEx creator 2"></p>
+<p>With the model ready, you now have to define the security property you want the model to hold. I focused my attention to two main security proprieties: authentication bypass and confidentiality breach. However, you can specify whatever security property you can think of as long as you can write an LTL formula of it.</p>
+<h3 id="2-analysing-the-formal-model">(2) Analysing the formal model</h3>
+<p>Once the formal model is ready, you give it in input to a model-checker that implements the DY attacker model and let it work its magic. Briefly, the DY attacker model is a formal model used to prove properties of network cryptographic protocols. You feed the DY intruder with a model describing the design of a network protocol and a property you want to be true over your model. The DY will try its best to prove that the given property does not hold and, if it succeeded, it generates a formula that proves that the property doesn&rsquo;t hold so that you can fix your model to make sure that the property holds.</p>
+<p>Once you start the analysis, you are gonna have to wait for about 10 minutes, get a coffee, come back, wait another 10 minutes &hellip; keep waiting until, if you have Saturn in your chart, you might eventually get an answer. (did I mention you might never get an answer?? more on that later)</p>
+<p>I previously mentioned that with the constant <code>malicious</code> the DY attacker can perform whatever action he pleases. In fact, every entity is formalized to react upon receiving the constant <code>malicious</code> by performing any of the action they support. For instance, the database, upon receiving <code>malicious</code> might perform a delete query, or might perform a normal query and extract information. The model-checker will decide which action should be performed once the constant <code>malicious</code> is received by an entity. Given that the model-checker will explorer every possible states, it will eventually explore a path where the combination of certain specific actions are going to violate the property you have defined on your model, thus defining for you the set of actions needed to attack your model&hellip; Pretty cool eh?</p>
+<h3 id="3-testing">(3) Testing</h3>
+<p>If you&rsquo;re lucky enough to get an answer from the model-checker (again, more on this later) there&rsquo;s one last step to perform: <strong>testing</strong>. As I mentioned early on, WAFEx implements a Model-Based Testing approach, which means that, in one way or in the other, you still have to perform <strong>testing</strong> on your system at some point. What differs however, is that the tests that you will run are going to come from the result of formally analysing the model of the web application with a model-checker. This means that you are not going to randomly test everything everywhere, but you will perform specific tests in specific parts of the web application by following the attacks generated by the model-checker.</p>
+<p>I have thus implemented a python engine to automate the process of testing the attacks generated by the model-checker. The python engine takes the output provided by the model-checker and runs it on the real web application. The python engine also takes advantage of external tools such as <a href="http://sqlmap.org/">sqlmap</a> and <a href="https://wfuzz.readthedocs.io/en/latest/">wfuzz</a> for payloads generation purposes (as you remember, WAFEx is not meant to generate payloads itself).</p>
+<h2 id="limitations">Limitations</h2>
+<p>Remember the whole &ldquo;if you&rsquo;re lucky enough to get an answer&rdquo;? this is the main problem with model-checking, the model you analyze might be so complicated that generates an enormous number of states to analyze. As a result, the analysis might never terminate, might get stuck in a loop, and you&rsquo;ll never get an answer, at least not within a reasonable timespan. There are some tricks you can implement to avoid this states explosion to happen and to deal with them when they do happen (sometimes there is only so much you can do about it). To avoid states space explosion you want to keep your model as simple as possible. However, in case you cannot keep it simple, you can instruct the model-checker on how to behave. You might opt to specify a bound or choose between BFS vs DFS visiting algorithm. Sometimes it might help to tweak the model-checker itself however, that&rsquo;s quite difficult and require you to have some knowledge of how the model-checking algorithm works. Otherwise you can just go random, try them all and see if they work :-)</p>
+<p>There are also some limitations with the kind of vulnerabilities WAFEx can deal with at the present time. This limitation, however, only depends from the fact that a Ph.D. has a limited time (mine was 4 years) and once time&rsquo;s up &hellip; well &hellip; it&rsquo;s done.</p>
+<p>However, WAFEx can be extended to include more details and thus represent more vulnerabilities and more complex scenarios which, obviously, requires further research.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>Web Application Formal Exploiter (WAFEx) is a formal, model-based testing approach for the security analysis of web applications. Its main purpose is to find attacks to web applications that are the result of combining multiple vulnerabilities together. It is not meant, and never was, to be a point-and-click tool to find SQLi, XSS, CSRF or any other specific vulnerability.</p>
+<p>Is WAFEx going to replace penetration testers? &hellip; Of course not, at least not in its current form, but until then &hellip;</p>
+<style>
+@font-face {
+  font-family: "Harry";
+  src: url(/fonts/hp.ttf) format("truetype");
+}
+</style>
+<div style="text-align:center;font-family:Harry;font-size:5em">mischief managed</div>
+
+    </div>
+  </article>
+
+
+  </body>
+</html>

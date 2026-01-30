@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta name="generator" content="Hugo 0.154.5"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+
+	
+	  <link rel="shortcut icon" href="http://localhost:1313/favicon.ico?v=1">
+	
+
+
+	
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="HandheldFriendly" content="True">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+
+	
+	
+	  <title>Federico De Meo</title>
+	
+
+	<link rel="me" href="https://infosec.exchange/@rhaidiz">
+
+
+	
+	
+	  
+		<link rel="stylesheet" href="/sass/toggle-button.css">
+	  
+	
+
+	
+	
+	  
+		<link rel="stylesheet" href="/sass/main.css">
+	  
+	
+
+	
+  
+  
+  
+    <link rel="stylesheet" href="/sass/index.css">
+  
+  
+
+
+</head>
+  <body>
+
+  <div>
+    <div class="control">
+    <label class="dark">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+        </svg>
+      <input type="radio" class="darkradio" name="radio" value="dark" />
+    </label>
+
+    <label class="light">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+          <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"></path>
+        </svg>
+      <input type="radio" class="lightradio" name="radio" value="light" />
+    </label>
+
+    <label class="auto">
+  	<svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      width="1em"
+      height="1em"
+      class="theme-toggle__dark-inner"
+      fill="currentColor"
+      viewBox="0 0 32 32"
+    >
+      <path d="M16 9c3.9 0 7 3.1 7 7s-3.1 7-7 7" />
+      <path d="M16 .5C7.4.5.5 7.4.5 16S7.4 31.5 16 31.5 31.5 24.6 31.5 16 24.6.5 16 .5zm0 28.1V23c-3.9 0-7-3.1-7-7s3.1-7 7-7V3.4C23 3.4 28.6 9 28.6 16S23 28.6 16 28.6z" />
+    </svg>
+      <input type="radio" class="autoradio" name="radio" checked value="auto" />
+    </label>
+  </div>
+</div>
+
+<script>
+  
+  const radios = document.querySelectorAll('input[name="radio"]');
+  
+  radios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      let valueToStore;
+  
+      switch (radio.value) {
+        case 'light':
+          valueToStore = 'light';
+          break;
+  
+        case 'dark':
+          valueToStore = 'dark';
+          break;
+  
+        case 'auto':
+          valueToStore = 'auto';
+          break;
+      }
+  
+      localStorage.setItem('selectedOption', valueToStore);
+    });
+  });
+
+  const savedValue = localStorage.getItem('selectedOption') ?? 'auto';
+  if (savedValue == 'dark') {
+	document.getElementsByClassName('darkradio')[0].click();
+  } else if (savedValue == 'light') {
+	document.getElementsByClassName('lightradio')[0].click();
+  } else {
+  document.getElementsByClassName('autoradio')[0].click();
+  }
+  
+</script>
+	
+
+<header>
+  <img src="/logo.png" />
+  <h1>Federico De Meo</h1>
+</header>
+  <div>
+  <p>I&rsquo;m a computer scientist with focus on security engineering, the art and craft of finding security gaps and proposing security controls. I am currently a Security Engineer at Amazon and previously at Arduino.</p>
+<p>I hold a Ph.D. in Computer Science from the University of Verona, where my research focused on developing a formal model to identify complex attacks on web applications. The result of my thesis was published in the <a href="https://content.iospress.com/articles/journal-of-computer-security/jcs181262?ref=ghost.rhaidiz.net">Journal of Computer Security</a>. This experience was an invaluable opportunity to enable the development of my analytical skills while gaining a deeper, and philosophical understanding, of cybersecurity.</p>
+
+  </div>
+
+  <p>
+<h1>Posts</h1>
+<ul>
+
+  <li class="post-item">
+	<div class="date">2022-07-18 </div>
+	<span>
+	  <a href="/posts/the-first-secret-problem/">
+	    The &#34;First Secret&#34; Problem
+      </a>
+	</span>
+  </li>
+
+  <li class="post-item">
+	<div class="date">2019-06-10 </div>
+	<span>
+	  <a href="/posts/wafex/">
+	    Web Application Formal Exploiter: a formal and automated approach to exploit multiple vulnerabilities of web applications&#34;
+      </a>
+	</span>
+  </li>
+
+  <li class="post-item">
+	<div class="date">2019-02-27 </div>
+	<span>
+	  <a href="/posts/dribble-router-vulns-dlink-alcatel-cve-2019-6969-cve-2019-6968-cve-2019-7163/">
+	    D-Link DVA-5592 missing authentication check [CVE-2019-6969] D-Link DVA-5592 Self XSS [CVE-2019-6968] Alcatel LINKZONE no authentication control whatsoever [CVE-2019-7163]
+      </a>
+	</span>
+  </li>
+
+  <li class="post-item">
+	<div class="date">2018-10-25 </div>
+	<span>
+	  <a href="/posts/dribble-stealing-wifi-password-via-browsers-cache-poisoning/">
+	    Project Dribble: hacking Wi-Fi with cached JavaScript
+      </a>
+	</span>
+  </li>
+
+</ul>
+  </p>
+  <h1>Academic</h1>
+  <div class="items-container">
+	<ul>
+  
+
+  <li><a class="title" href="https://www.researchgate.net/publication/354765715_The_Etiology_of_Cybersecurity">The Etiology of Cybersecurity</a> <span class="authors">(Michele Ambrosi, Marco Rocchetto, Mattia Pacchin, Francesco Beltramini, Oliviero Nardi and Federico De Meo)</span> - <span class="conference"> CIMSS, (2022)</span>.</li>
+  
+
+  <li><a class="title" href="https://content.iospress.com/articles/journal-of-computer-security/jcs181262">A formal and automated approach to exploiting multi-stage attacks of web applications.</a> <span class="authors">(Federico De Meo and Luca Vinganò)</span> - <span class="conference"> Journal of Compututer Security, (2020)</span>.</li>
+  
+
+  <li><a class="title" href="https://onlinelibrary.wiley.com/doi/abs/10.1002/stvr.1685">Mobster: A model-based security testing framework for web applications.</a> <span class="authors">(Michele Peroli, Federico De Meo, Luca Viganò, and Davide Guardini.)</span> - <span class="conference"> Software Testing, Verification and Reliability (2017)</span>.</li>
+  
+
+  <li><a class="title" href="https://link.springer.com/chapter/10.1007/978-3-319-62105-0_13">A Formal Approach to Exploiting Multi-stage Attacks Based on File-System Vulnerabilities of Web Applications.</a> <span class="authors">(Federico De Meo and Luca Viganò)</span> - <span class="conference"> ESSoS (2017)</span>.</li>
+  
+
+  <li><a class="title" href="https://link.springer.com/chapter/10.1007/978-3-319-46598-2_13">Formal Analysis of Vulnerabilities of Web Applications Based on SQL Injection.</a> <span class="authors">(Federico De Meo, Marco Rocchetto and Luca Viganò)</span> - <span class="conference"> STM (2016)</span>.</li>
+  
+	</ul>
+    </div>
+
+
+  </body>
+</html>

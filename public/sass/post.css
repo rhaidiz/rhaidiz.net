@@ -1,0 +1,219 @@
+:root {
+  --bg: #fdf6e3;
+  --text: #657b83;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #002b36;
+    --text: #839496;
+  }
+}
+.toplogo {
+  text-align: center;
+}
+.toplogo img {
+  width: 200px;
+}
+
+article {
+  margin-bottom: 5em;
+}
+article header {
+  margin-top: 5em;
+  margin-bottom: 2em;
+}
+article header .posttitle {
+  margin-top: 0;
+  margin-bottom: 0;
+  text-transform: none;
+  font-size: 2.5rem;
+  line-height: 1.25;
+  font-style: normal;
+  font-weight: normal;
+  font-family: "Fira Sans";
+}
+article header .meta {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+article header .meta * {
+  font-size: 0.85rem;
+  background-image: none;
+}
+article header .author {
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+}
+article header .postdate {
+  display: inline;
+}
+article .content h1 {
+  font-family: "Fira Sans";
+  font-weight: bold;
+  color: #2aa198;
+  font-size: 2.5rem;
+  margin-top: 0.5rem;
+  line-height: 1.4em;
+  text-align: left;
+}
+article .content h2 {
+  font-family: "Fira Sans";
+  font-weight: bold;
+  color: #2aa198;
+  font-size: 2rem;
+  line-height: 1.4em;
+}
+article .content h3 {
+  font-family: "Fira Sans";
+  font-weight: bold;
+  color: #2aa198;
+  font-size: 1.5rem;
+  line-height: 1.4em;
+}
+article .content time {
+  color: #d33682;
+  font-family: Fira Sans;
+  font-style: normal;
+  font-weight: normal;
+}
+article .content .video-container {
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%;
+  height: 0;
+}
+article .content blockquote {
+  margin: 1rem 10px;
+  padding: 0.5em 10px;
+  background: inherit;
+  quotes: "“" "”" "‘" "’";
+  font-weight: bold;
+}
+article .content blockquote p {
+  margin: 0;
+  text-align: justify;
+}
+article .content blockquote:before {
+  margin-right: 0.25em;
+  content: "“";
+  vertical-align: -0.4em;
+  font-size: 2em;
+  line-height: 0.1em;
+}
+article .content blockquote footer {
+  margin: line-height 0;
+  font-size: 11px;
+}
+article .content blockquote footer cite:before {
+  padding: 0 0.5em;
+  content: "—";
+}
+article .content .pullquote {
+  margin: 0;
+  width: 45%;
+  text-align: left;
+}
+article .content .pullquote.left {
+  margin-right: 1em;
+  margin-left: 0.5em;
+}
+article .content .pullquote.right {
+  margin-right: 0.5em;
+  margin-left: 1em;
+}
+article .content .caption {
+  position: relative;
+  display: block;
+  margin-top: 0.5em;
+  color: color-grey;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+article .content p,
+article .content ul,
+article .content ol {
+  font-family: Libre Baskerville;
+  font-style: normal;
+  font-size: 1.15em;
+  line-height: 1.9em;
+  text-align: justify;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+article .content img,
+article .content video {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+article .content .video-container iframe,
+article .content .video-container object,
+article .content .video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.posttitle {
+  text-transform: none;
+  font-size: 1.5em;
+  line-height: 1.25;
+}
+
+.article-tag .tag-link:before {
+  content: "#";
+}
+.article-tag:before {
+  content: "|";
+}
+
+.highlight pre {
+  padding: 1rem;
+  overflow-x: scroll;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 1rem 0;
+}
+
+.tag-badge {
+  font-family: Fira Sans;
+  font-style: normal;
+  font-weight: normal;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background-color: rgba(38, 139, 210, 0.05);
+  border-color: 1px red;
+  color: var(--text);
+  color: #268bd2;
+  text-decoration: none;
+  font-size: 0.85rem;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+.tag-badge:hover {
+  background-color: rgba(38, 139, 210, 0.15);
+  text-decoration: none;
+}
+
+@media (max-width: 800px) {
+  .toplogo img {
+    width: 200px;
+  }
+  body {
+    padding: 2rem;
+  }
+}

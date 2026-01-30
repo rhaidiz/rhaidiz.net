@@ -1,0 +1,91 @@
+@use 'variables' as v;
+
+:root {
+  // Light theme as default
+  --bg: #{v.$background-color-light};
+  --text: #{v.$text-color-light};
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light-theme):not(.dark-theme) {
+    // Switch to dark theme variables
+  --bg: #{v.$background-color-dark};
+  --text: #{v.$text-color-dark};
+  }
+}
+
+@font-face {
+  font-family: "Fira Sans";
+  src: url("/fonts/Fira_Sans/FiraSans-Bold.woff2") format("woff2");
+  font-style: bold;
+  font-weight: bold;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Fira Sans";
+  src: url("/fonts/Fira_Sans/FiraSans-ExtraLight.woff2") format("woff2");
+  font-style: lighter;
+  font-weight: 100;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: "Fira Sans";
+  src: url("/fonts/Fira_Sans/FiraSans-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("/fonts/Libre_Baskerville/libre-baskerville-v7-latin-regular.woff2") format("woff2");
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+	height: 100%;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+
+body {
+    display: flex;
+	flex-direction: column;
+	font-display: swap;
+	font-weight: 400;
+	max-width: 48em;
+	margin-top: 5em;
+    margin-right: auto;
+    margin-left: auto;
+    background: var(--bg);
+    font-size: 16px;
+    font-family: 'Libre Baskerville';
+    text-align: justify;
+    line-height: 1.9rem;
+    color: var(--text);
+}
+
+p,
+ul,
+il {
+  font-size: 1.15rem;
+}
+
+a {
+  color: var(--text);
+}
+
+a:hover{
+  color: v.$orange;
+  text-decoration: underline;
+}
+
+h1{
+  font-family: "Fira Sans";
+  color: v.$cyan;
+}
+

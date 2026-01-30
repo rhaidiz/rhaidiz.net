@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Federico De Meo</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on Federico De Meo</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 18 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The &#34;First Secret&#34; Problem</title>
+      <link>http://localhost:1313/posts/the-first-secret-problem/</link>
+      <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/the-first-secret-problem/</guid>
+      <description>&lt;p&gt;Trust is an important property. Actually, it is the single most important property of them all. With trust we can bootstrap security, as security cannot be fabricated out of thin air. However, trust has an inherited problem, it requires you to assume that something is true, verified, confidential, integral or, simply, secure.&#xA;This is why, as a rule of thumb, a system, to be secure, should be built so that it doesn’t make many trust assumptions.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Web Application Formal Exploiter: a formal and automated approach to exploit multiple vulnerabilities of web applications&#34;</title>
+      <link>http://localhost:1313/posts/wafex/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/wafex/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;In this post I want to briefly present the result of my Ph.D. research. I won&amp;rsquo;t go into the technical details of the project, that you can find in my &lt;a href=&#34;https://iris.univr.it/retrieve/handle/11562/979770/113719/thesis%20de%20meo.pdf&#34;&gt;Ph.D. thesis&lt;/a&gt;, but I&amp;rsquo;ll rather give an high-level overview of the work. I hope it might be of interest and inspiration to some of you.&lt;/p&gt;&#xA;&lt;h2 id=&#34;where-i-started&#34;&gt;Where I started&lt;/h2&gt;&#xA;&lt;p&gt;When I finished my MSc I had a pretty good understanding of the main vulnerabilities of web applications. I had also played around with most of the main vulnerable by design web applications such as &lt;a href=&#34;https://www.owasp.org/index.php/Category:OWASP_WebGoat_Project&#34;&gt;WebGoat&lt;/a&gt;, &lt;a href=&#34;http://www.dvwa.co.uk&#34;&gt;DVWA&lt;/a&gt; and &lt;a href=&#34;https://google-gruyere.appspot.com&#34;&gt;Gruyere&lt;/a&gt; however, I felt like something was missing. Although everything I had studied so far was clear to me, I found asking myself: &amp;ldquo;alright, but what would a real attacker actually do once he found an issue?&amp;rdquo;. The goal of a real attacker is not to &lt;strong&gt;find&lt;/strong&gt;, for instance, an SQLi but rather to &lt;strong&gt;exploit&lt;/strong&gt; the SQLi to achieve something, right??&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>D-Link DVA-5592 missing authentication check [CVE-2019-6969] D-Link DVA-5592 Self XSS [CVE-2019-6968] Alcatel LINKZONE no authentication control whatsoever [CVE-2019-7163]</title>
+      <link>http://localhost:1313/posts/dribble-router-vulns-dlink-alcatel-cve-2019-6969-cve-2019-6968-cve-2019-7163/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/dribble-router-vulns-dlink-alcatel-cve-2019-6969-cve-2019-6968-cve-2019-7163/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;DISCLAIMER:&lt;/strong&gt; The author is not responsible for the misuse of the information contained in this post.&lt;/p&gt;&#xA;&lt;p&gt;This is a long-overdue post describing some vulnerabilities that I found while working on &lt;a href=&#34;http://localhost:1313/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&#34;&gt;project Dribble&lt;/a&gt;. Let me start by giving a very brief context so that you&amp;rsquo;ll be able to follow this post without needing to know all the details of Dribble. The basic idea behind Dribble is to cache JavaScript code in the victim&amp;rsquo;s browser while connected to a rouge access point. When the victim gets home, the cached JavaScript code will try to access the victim&amp;rsquo;s router in order to retrieve the Wi-Fi password. Dribble thus brute-forces the login page of the web interface of the victim&amp;rsquo;s router. In order to implement the brute-forcer, I had to investigate the login process of the routers I had at my disposal. At first, I had access only to my personal router, the D-Link DVA-5592, than I could also get my hands on the Alcatel Linkzone MW40-V-V1.0 which was given to me by my ISP along with a SIM card. Incredibly enough, both routers present some kind of authentication bypass thus not properly verifying that the user is logged in before providing sensitive information such as the Wi-Fi password. Let&amp;rsquo;s get into it.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Project Dribble: hacking Wi-Fi with cached JavaScript</title>
+      <link>http://localhost:1313/posts/dribble-stealing-wifi-password-via-browsers-cache-poisoning/</link>
+      <pubDate>Thu, 25 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/dribble-stealing-wifi-password-via-browsers-cache-poisoning/</guid>
+      <description>&lt;style&gt;&#xA;@font-face {&#xA;  font-family: &#34;Harry&#34;;&#xA;  src: url(/fonts/hp.ttf) format(&#34;truetype&#34;);&#xA;}&#xA;&lt;/style&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been meaning to work on this little project for quite some time, but life got in the way and I was always too busy. Now I finally got some time back for myself and I&amp;rsquo;m here talking about it.&lt;/p&gt;&#xA;&lt;p&gt;Quite some time ago I checked out the Wireless LAN Security Megaprimer course by Vivek Ramachandran (very nice, highly recommended) and incidentally in the same period I was doing some traveling which meant I got to stay in different hotels all providing Wi-Fi.  Needless to say, my brain started to go crazy and I&amp;rsquo;ve thus been thinking about &amp;ldquo;unconventional&amp;rdquo; ways to get Wi-Fi passwords.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

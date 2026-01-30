@@ -1,0 +1,54 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Federico De Meo'
+theme = 'solarized'
+
+[caches]
+  [caches.images]
+      dir = ':cacheDir/images'
+
+[markup]
+  [markup.highlight]
+    style = 'monokai'
+	noClasses = false
+
+[markup.goldmark.renderer]
+   unsafe = true
+
+[params]
+logo = '/logo.png'
+description = """I'm a computer scientist with focus on security engineering, the art and craft of finding security gaps and proposing security controls. I am currently a Security Engineer at Amazon and previously at Arduino.
+
+I hold a Ph.D. in Computer Science from the University of Verona, where my research focused on developing a formal model to identify complex attacks on web applications. The result of my thesis was published in the [Journal of Computer Security](https://content.iospress.com/articles/journal-of-computer-security/jcs181262?ref=ghost.rhaidiz.net). This experience was an invaluable opportunity to enable the development of my analytical skills while gaining a deeper, and philosophical understanding, of cybersecurity."""
+favicon = "/favicon.ico"
+
+
+[[params.team_members]]
+  title = "The Etiology of Cybersecurity"
+  url = "https://www.researchgate.net/publication/354765715_The_Etiology_of_Cybersecurity"
+  authors = "Michele Ambrosi, Marco Rocchetto, Mattia Pacchin, Francesco Beltramini, Oliviero Nardi and Federico De Meo"
+  conference = "CIMSS, (2022)"
+
+[[params.team_members]]
+  title = "A formal and automated approach to exploiting multi-stage attacks of web applications."
+  url="https://content.iospress.com/articles/journal-of-computer-security/jcs181262"
+  authors="Federico De Meo and Luca Vinganò"
+  conference="Journal of Compututer Security, (2020)"
+
+[[params.team_members]]
+  title = "Mobster: A model-based security testing framework for web applications."
+  url="https://onlinelibrary.wiley.com/doi/abs/10.1002/stvr.1685"
+  authors="Michele Peroli, Federico De Meo, Luca Viganò, and Davide Guardini."
+  conference="Software Testing, Verification and Reliability (2017)"
+
+[[params.team_members]]
+  title = "A Formal Approach to Exploiting Multi-stage Attacks Based on File-System Vulnerabilities of Web Applications."
+  url="https://link.springer.com/chapter/10.1007/978-3-319-62105-0_13"
+  authors="Federico De Meo and Luca Viganò"
+  conference= "ESSoS (2017)"
+
+[[params.team_members]]
+  title = "Formal Analysis of Vulnerabilities of Web Applications Based on SQL Injection."
+  url="https://link.springer.com/chapter/10.1007/978-3-319-46598-2_13"
+  authors="Federico De Meo, Marco Rocchetto and Luca Viganò"
+  conference= "STM (2016)"

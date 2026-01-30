@@ -1,0 +1,49 @@
+@use 'variables' as v;
+
+header img {
+  float: left;
+  width: 4.5rem;
+  display: inline-block;
+}
+
+.authors {
+  font-weight: lighter;
+}
+
+.conference {
+  color: v.$blue;
+}
+
+h1 {
+  font-size: 2.4rem;
+}
+
+p,
+a {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.items-container {
+  text-align: left;
+}
+
+.date {
+  font-weight: lighter;
+  min-width: 100px;
+  margin-right: 16px;
+}
+
+ul {
+  padding: 0;
+  font-family: "Fira Sans";
+  list-style-type: none;
+}
+
+.post-item{
+  display: flex;
+}
+
+span > a {
+  text-decoration: none;
+}

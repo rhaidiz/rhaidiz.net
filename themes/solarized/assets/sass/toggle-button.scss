@@ -1,0 +1,153 @@
+@use 'variables' as v;
+
+.control {
+	width: 30px;
+    float:right;
+    label {
+        width: inherit;
+        position: absolute;
+        text-align: center;
+        border-radius: 160px;
+        padding-top: 10px;
+        cursor: pointer;
+        input {
+            appearance: none;
+            margin: 0;
+        }
+    }
+	label > svg {
+        border-radius: 120px;
+        background: var(--bg);
+	}
+    .one > svg {
+        pointer-events: none;
+    }
+
+    .two > svg {
+    }
+
+    .three > svg {
+    }
+
+}
+
+label:has(:checked) {
+    ~ label {
+        opacity: 0;
+    }
+    &:is(:not(:first-child)) {
+        pointer-events: none;
+        ~ label { pointer-events: none; }
+    }
+    &:is(:first-child) {
+        ~ label { pointer-events: auto; }
+    }
+}
+
+body:has(.lightradio:checked) {
+  --bg: #{v.$background-color-light};
+  --text: #{v.$text-color-light};
+}
+
+body:has(.darkradio:checked) {
+  --bg: #{v.$background-color-dark};
+  --text: #{v.$text-color-dark};
+}
+
+
+/* Make SVG rotate smoothly */
+label svg {
+  transition: transform 0.5s ease-in-out;
+  transform: rotate(0deg); /* default */
+}
+
+/* When the label is checked, rotate the SVG */
+label:has(input:checked) svg {
+  transform: rotate(360deg); /* one full turn */
+}
+
+ svg {
+	grid-area: 1/1;
+	transition: scale 300ms ease-in-out, rotate 500ms ease-in-out;
+	width: 100%;
+	height: 100%;
+	scale: 1;
+	rotate: 1turn;
+
+}
+
+.theme-toggle-wrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+/* Hide the radios */
+.sr-only {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* Toggle container (circle) */
+.theme-toggle {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* Icons stacked on top of each other */
+.icon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+#light:checked ~ .theme-toggle .light,
+#dark:checked ~ .theme-toggle .dark,
+#auto:checked ~ .theme-toggle .auto {
+  opacity: 1;
+}
+
+/* Sliding indicator */
+.indicator {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+/* Move indicator depending on checked state */
+#light:checked ~ .theme-toggle .indicator {
+  transform: rotate(0deg) translateY(0);
+}
+
+#dark:checked ~ .theme-toggle .indicator {
+  transform: rotate(120deg) translateY(0);
+}
+
+#auto:checked ~ .theme-toggle .indicator {
+  transform: rotate(240deg) translateY(0);
+}
+
+/* Optional: hover effect for icons */
+.icon:hover {
+  opacity: 0.7;
+}

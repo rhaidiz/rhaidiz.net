@@ -1,0 +1,18 @@
+<div class="toplogo">
+  <a href="/">
+	<img src="{{ .Site.Params.logo}}" />
+  </a>
+</div>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+      <a href="/"><div id="logo" style="background-image: url(<%- url_for(theme.logo.url) %>)"></div></a>
+    <div class="meta">
+	  </div>
+  </header>
+  <div class="content" itemprop="articleBody">
+	<time datetime="{{ .Date | time.Format "2006-01-02"  }}">{{ .Date | time.Format ":date_medium" }}</time>
+	<h1>{{ .Title }}</h1>
+	{{ .Content }}
+  </div>
+</article>

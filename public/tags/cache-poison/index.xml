@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cache-Poison on Federico De Meo</title>
+    <link>http://localhost:1313/tags/cache-poison/</link>
+    <description>Recent content in Cache-Poison on Federico De Meo</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 27 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/cache-poison/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>D-Link DVA-5592 missing authentication check [CVE-2019-6969] D-Link DVA-5592 Self XSS [CVE-2019-6968] Alcatel LINKZONE no authentication control whatsoever [CVE-2019-7163]</title>
+      <link>http://localhost:1313/posts/dribble-router-vulns-dlink-alcatel-cve-2019-6969-cve-2019-6968-cve-2019-7163/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/dribble-router-vulns-dlink-alcatel-cve-2019-6969-cve-2019-6968-cve-2019-7163/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;DISCLAIMER:&lt;/strong&gt; The author is not responsible for the misuse of the information contained in this post.&lt;/p&gt;&#xA;&lt;p&gt;This is a long-overdue post describing some vulnerabilities that I found while working on &lt;a href=&#34;http://localhost:1313/2018/10/25/dribble-stealing-wifi-password-via-browsers-cache-poisoning/&#34;&gt;project Dribble&lt;/a&gt;. Let me start by giving a very brief context so that you&amp;rsquo;ll be able to follow this post without needing to know all the details of Dribble. The basic idea behind Dribble is to cache JavaScript code in the victim&amp;rsquo;s browser while connected to a rouge access point. When the victim gets home, the cached JavaScript code will try to access the victim&amp;rsquo;s router in order to retrieve the Wi-Fi password. Dribble thus brute-forces the login page of the web interface of the victim&amp;rsquo;s router. In order to implement the brute-forcer, I had to investigate the login process of the routers I had at my disposal. At first, I had access only to my personal router, the D-Link DVA-5592, than I could also get my hands on the Alcatel Linkzone MW40-V-V1.0 which was given to me by my ISP along with a SIM card. Incredibly enough, both routers present some kind of authentication bypass thus not properly verifying that the user is logged in before providing sensitive information such as the Wi-Fi password. Let&amp;rsquo;s get into it.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Project Dribble: hacking Wi-Fi with cached JavaScript</title>
+      <link>http://localhost:1313/posts/dribble-stealing-wifi-password-via-browsers-cache-poisoning/</link>
+      <pubDate>Thu, 25 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/dribble-stealing-wifi-password-via-browsers-cache-poisoning/</guid>
+      <description>&lt;style&gt;&#xA;@font-face {&#xA;  font-family: &#34;Harry&#34;;&#xA;  src: url(/fonts/hp.ttf) format(&#34;truetype&#34;);&#xA;}&#xA;&lt;/style&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been meaning to work on this little project for quite some time, but life got in the way and I was always too busy. Now I finally got some time back for myself and I&amp;rsquo;m here talking about it.&lt;/p&gt;&#xA;&lt;p&gt;Quite some time ago I checked out the Wireless LAN Security Megaprimer course by Vivek Ramachandran (very nice, highly recommended) and incidentally in the same period I was doing some traveling which meant I got to stay in different hotels all providing Wi-Fi.  Needless to say, my brain started to go crazy and I&amp;rsquo;ve thus been thinking about &amp;ldquo;unconventional&amp;rdquo; ways to get Wi-Fi passwords.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

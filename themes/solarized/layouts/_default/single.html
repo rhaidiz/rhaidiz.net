@@ -1,0 +1,52 @@
+{{ define "header" }}
+  <!-- Light syntax highliter -->
+  <link rel="stylesheet" href="{{ (resources.Get "sass/syntax-light.css").RelPermalink }}" media="(prefers-color-scheme: light)">
+  
+  <!-- Dark syntax highliter -->
+  <link rel="stylesheet" href="{{ (resources.Get "sass/syntax-dark.css").RelPermalink }}" media="(prefers-color-scheme: dark)">
+
+  {{ $opts := dict "transpiler" "dartsass" }}
+  {{ with resources.Get "sass/post.scss" }}
+  {{ with . | toCSS $opts }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}">
+  {{ end }}
+  {{ end }}
+  
+  {{ $font := resources.Get "/fonts/Fira_Sans/FiraSans-Bold.woff2" }}
+  <link rel="preload" href="{{ $font.RelPermalink }}" as="font" type="font/woff2" crossorigin>
+  
+  {{ $font1 := resources.Get "/fonts/Fira_Sans/FiraSans-Regular.woff2" }}
+  <link rel="preload" href="{{ $font1.RelPermalink }}" as="font" type="font/woff2" crossorigin>
+  
+  {{ $font2 := resources.Get "/fonts/Fira_Sans/FiraSans-ExtraLight.woff2" }}
+  <link rel="preload" href="{{ $font2.RelPermalink }}" as="font" type="font/woff2" crossorigin>
+  
+  {{ $font2 := resources.Get "/fonts/Libre_Baskerville/libre-baskerville-v7-latin-regular.woff2" }}
+  <link rel="preload" href="{{ $font2.RelPermalink }}" as="font" type="font/woff2" crossorigin>
+
+{{ end }}
+
+{{ define "main" }}
+  <div class="toplogo">
+    <a href="/">
+  	<img src="{{ .Site.Params.logo}}" />
+    </a>
+  </div>
+  
+  <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+    </header>
+
+    <div class="content" itemprop="articleBody">
+  	<time datetime="{{ .Date | time.Format "2006-01-02"  }}">{{ .Date | time.Format ":date_medium" }}</time>
+  	<h1>{{ .Title }}</h1>
+	<div class="post-tags">
+  {{ range .GetTerms "tags" }}
+    <a href="{{ .RelPermalink }}" class="tag-badge">{{ .LinkTitle }}</a>
+  {{ end }}
+</div>
+
+  	{{ .Content }}
+    </div>
+  </article>
+{{ end }}

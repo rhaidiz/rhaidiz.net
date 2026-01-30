@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Federico De Meo</title>
+    <link>http://localhost:1313/tags/</link>
+    <description>Recent content in Tags on Federico De Meo</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 18 Jul 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Engineering</title>
+      <link>http://localhost:1313/tags/engineering/</link>
+      <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/engineering/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Secret</title>
+      <link>http://localhost:1313/tags/secret/</link>
+      <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/secret/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Security</title>
+      <link>http://localhost:1313/tags/security/</link>
+      <pubDate>Mon, 18 Jul 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/security/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Exploitation</title>
+      <link>http://localhost:1313/tags/exploitation/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/exploitation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Formal Analysis</title>
+      <link>http://localhost:1313/tags/formal-analysis/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/formal-analysis/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MBT</title>
+      <link>http://localhost:1313/tags/mbt/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/mbt/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Model-Based Testing</title>
+      <link>http://localhost:1313/tags/model-based-testing/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/model-based-testing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Model-Checking</title>
+      <link>http://localhost:1313/tags/model-checking/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/model-checking/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Multi-State Attacks</title>
+      <link>http://localhost:1313/tags/multi-state-attacks/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/multi-state-attacks/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Phd</title>
+      <link>http://localhost:1313/tags/phd/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/phd/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Wafex</title>
+      <link>http://localhost:1313/tags/wafex/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/wafex/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>WAPT</title>
+      <link>http://localhost:1313/tags/wapt/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/wapt/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web Application Security</title>
+      <link>http://localhost:1313/tags/web-application-security/</link>
+      <pubDate>Mon, 10 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/web-application-security/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Alcatel</title>
+      <link>http://localhost:1313/tags/alcatel/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/alcatel/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cache-Poison</title>
+      <link>http://localhost:1313/tags/cache-poison/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/cache-poison/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cve-2019-6968</title>
+      <link>http://localhost:1313/tags/cve-2019-6968/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/cve-2019-6968/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cve-2019-6969</title>
+      <link>http://localhost:1313/tags/cve-2019-6969/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/cve-2019-6969/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cve-2019-7163</title>
+      <link>http://localhost:1313/tags/cve-2019-7163/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/cve-2019-7163/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>D-Link</title>
+      <link>http://localhost:1313/tags/d-link/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/d-link/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dlink</title>
+      <link>http://localhost:1313/tags/dlink/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/dlink/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dribble</title>
+      <link>http://localhost:1313/tags/dribble/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/dribble/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dva-5592</title>
+      <link>http://localhost:1313/tags/dva-5592/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/dva-5592/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LINKZONE</title>
+      <link>http://localhost:1313/tags/linkzone/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/linkzone/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MW40-v-V1</title>
+      <link>http://localhost:1313/tags/mw40-v-v1/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/mw40-v-v1/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Wi-Fi</title>
+      <link>http://localhost:1313/tags/wi-fi/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/wi-fi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Wifi</title>
+      <link>http://localhost:1313/tags/wifi/</link>
+      <pubDate>Wed, 27 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/wifi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Bettercap</title>
+      <link>http://localhost:1313/tags/bettercap/</link>
+      <pubDate>Thu, 25 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/bettercap/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cache</title>
+      <link>http://localhost:1313/tags/cache/</link>
+      <pubDate>Thu, 25 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/cache/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Dnsmasq</title>
+      <link>http://localhost:1313/tags/dnsmasq/</link>
+      <pubDate>Thu, 25 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/dnsmasq/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hostapd</title>
+      <link>http://localhost:1313/tags/hostapd/</link>
+      <pubDate>Thu, 25 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/hostapd/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Raspberry</title>
+      <link>http://localhost:1313/tags/raspberry/</link>
+      <pubDate>Thu, 25 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/raspberry/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Rpi</title>
+      <link>http://localhost:1313/tags/rpi/</link>
+      <pubDate>Thu, 25 Oct 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/rpi/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>
