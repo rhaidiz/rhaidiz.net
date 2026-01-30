@@ -89,3 +89,15 @@ h1{
   color: v.$cyan;
 }
 
+@media (max-width: 800px) {
+
+  .toplogo{
+    img{
+      width: 200px;
+    }
+  }
+
+  body{
+    padding: 2rem;
+  }
+}
